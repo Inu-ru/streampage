@@ -63,15 +63,46 @@
       color: #9ba1b0;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 1.2rem;
-      font-size: 0.92rem;
-      font-weight: 600;
-      flex-wrap: wrap;
+    /* プルダウンナビゲーション */
+    .nav-select-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
     }
 
-    .nav-links a:hover {
+    .nav-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: #1a1d2d;
+      color: #f0f2f8;
+      border: 1px solid #3e4566;
+      border-radius: 10px;
+      padding: 0.55rem 2.4rem 0.55rem 1rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-select:hover,
+    .nav-select:focus {
+      border-color: #ff4757;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.2);
+    }
+
+    .nav-select option {
+      background-color: #1a1d2d;
+      color: #f0f2f8;
+    }
+
+    .nav-select-arrow {
+      position: absolute;
+      right: 0.85rem;
+      pointer-events: none;
+      font-size: 0.75rem;
       color: #ff4757;
     }
 
@@ -319,7 +350,7 @@
       color: #ff4757;
     }
 
-    /* 大会・企画情報セクション */
+    /* 大会・企画情報セクション & 実績セクション共通リスト */
     .event-container {
       background: #1a1d2d;
       border: 1px solid #2c3149;
@@ -425,6 +456,29 @@
       padding: 0.25rem 0.65rem;
       border-radius: 6px;
       white-space: nowrap;
+    }
+
+    /* 実績セクション見出し */
+    .achievement-category {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffd166;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .achievement-date {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ff6b81;
+      background: rgba(255, 71, 87, 0.14);
+      padding: 0.15rem 0.55rem;
+      border-radius: 5px;
+      margin-bottom: 0.25rem;
+      width: fit-content;
     }
 
     /* プロフィール & スケジュール */
@@ -740,7 +794,7 @@
       .hero h1 { font-size: 2rem; }
       .logo { font-size: 1.2rem; }
       .logo .sub-tagline { font-size: 0.8rem; }
-      .nav-links { gap: 0.8rem; font-size: 0.84rem; }
+      .nav-select { font-size: 0.85rem; padding: 0.45rem 2.1rem 0.45rem 0.85rem; }
       .event-item a,
       .event-item .event-card-disabled { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     }
@@ -751,14 +805,19 @@
   <header>
     <div class="nav-container">
       <a href="#" class="logo">☕ いぬーる <span class="sub-tagline">～ラジオのようなゲーム配信～</span></a>
-      <nav class="nav-links">
-        <a href="#live">LIVE</a>
-        <a href="#videos">動画</a>
-        <a href="#events">大会・企画</a>
-        <a href="#profile">プロフィール</a>
-        <a href="#links">LINKS</a>
-        <a href="#contact">お問い合わせ</a>
-      </nav>
+      <div class="nav-select-wrapper">
+        <select id="section-jump" class="nav-select" aria-label="メニュー移動" onchange="jumpToSection(this)">
+          <option value="">メニューを選択...</option>
+          <option value="#live">LIVE</option>
+          <option value="#videos">動画</option>
+          <option value="#events">大会・企画</option>
+          <option value="#profile">プロフィール</option>
+          <option value="#links">LINKS</option>
+          <option value="#achievements">実績</option>
+          <option value="#contact">お問い合わせ</option>
+        </select>
+        <span class="nav-select-arrow">▼</span>
+      </div>
     </div>
   </header>
 
@@ -910,7 +969,7 @@
       <div class="grid-2">
         <div class="card">
           <h3>☕ いぬーるについて</h3>
-          <div class="creator-badge">🏅 DBD Creator Gold（公認クリエイター）</div>
+          <div class="creator-badge">DBD Creator Gold（公認クリエイター）</div>
           <p class="profile-meta">
             <strong>名前：</strong> いぬーる<br>
             <strong>種族：</strong> 神獣<br>
@@ -941,6 +1000,7 @@
               <span class="genre-tag">ホラーゲーム</span>
               <span class="genre-tag">インディーズゲーム</span>
               <span class="genre-tag">FPS</span>
+              <span class="genre-tag">その他（雑談等）</span>
             </div>
           </div>
 
@@ -1010,6 +1070,58 @@
       </div>
     </section>
 
+    <!-- 実績セクション -->
+    <section id="achievements">
+      <h2 class="section-title">実績</h2>
+      <div class="event-container">
+        <div class="achievement-category">🎙️ 実況・解説</div>
+        <ul class="event-list">
+          <li class="event-item">
+            <a href="https://youtube.com/playlist?list=PLy__n2IwFh6kvoJ8o9FqR8b4tNwJBhBq6&si=nU3sXwqzOU8e4Wkw" target="_blank" rel="noopener noreferrer">
+              <div class="event-info">
+                <span class="achievement-date">Apr - Nov 2026</span>
+                <span class="event-name">INR CUSTOM Fever</span>
+                <span class="event-meta">運営・実況（再生リスト）</span>
+              </div>
+              <span class="event-arrow">再生リストを見る →</span>
+            </a>
+          </li>
+
+          <li class="event-item">
+            <a href="https://www.youtube.com/live/3hy2EtCIWXY?si=NzdpwRbDjbsmfRsb" target="_blank" rel="noopener noreferrer">
+              <div class="event-info">
+                <span class="achievement-date">Apr 2026</span>
+                <span class="event-name">スケベな罠師選手権Vol.4</span>
+                <span class="event-meta">実況（配信アーカイブ）</span>
+              </div>
+              <span class="event-arrow">アーカイブを見る →</span>
+            </a>
+          </li>
+
+          <li class="event-item">
+            <a href="https://www.youtube.com/watch?v=jDKf8rYLHQA&t=10899s" target="_blank" rel="noopener noreferrer">
+              <div class="event-info">
+                <span class="achievement-date">May 2025</span>
+                <span class="event-name">DBD ALLSTARS season1</span>
+                <span class="event-meta">実況（配信アーカイブ）</span>
+              </div>
+              <span class="event-arrow">アーカイブを見る →</span>
+            </a>
+          </li>
+
+          <li class="event-item">
+            <div class="event-card-disabled">
+              <div class="event-info">
+                <span class="achievement-date">Feb 2025</span>
+                <span class="event-name">Owl杯 Dead by Daylight Mobile</span>
+                <span class="event-meta">MC / 実況</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <!-- お問い合わせセンターセクション -->
     <section id="contact">
       <h2 class="section-title">お問い合わせセンター</h2>
@@ -1049,6 +1161,17 @@
 
   <script>
     const YOUTUBE_CHANNEL_ID = 'UC0cgRgovA84hfh-P7G-sSKw';
+
+    // ヘッダープルダウンからセクションへジャンプ
+    function jumpToSection(selectEl) {
+      const targetId = selectEl.value;
+      if (!targetId) return;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
+      selectEl.selectedIndex = 0;
+    }
 
     // YouTube公式RSSフィードから最新動画のIDを取得
     (async function initLatestVideo() {
@@ -1095,7 +1218,7 @@
         { label: '技術', value: 4 },
         { label: '企画力', value: 4 },
         { label: 'テンション', value: 8 },
-        { label: 'リスナー愛', value: 7 },
+        { label: 'リスナー愛', value: 8 },
         { label: '絶叫', value: 6 },
         { label: '配信頻度', value: 5 }
       ];
