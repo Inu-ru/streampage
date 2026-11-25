@@ -274,6 +274,12 @@
       border-radius: 6px;
     }
 
+    .latest-video-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f0f2f8;
+    }
+
     .video-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -580,7 +586,7 @@
 
         <div id="stream-banner" class="stream-banner">
           <h3>📡 配信チャンネルはこちら</h3>
-          <p>YouTubeの仕様上、進行中のライブ枠を完全自動判別するにはURL指定（またはAPI連携）が必要です。配信枠のURLを貼るか、各チャンネルから直接ご覧ください。</p>
+          <p>最新のライブ配信や待機所はYouTube・Twitchのチャンネルページからチェックできます。</p>
           <div class="stream-btn-group">
             <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B/streams" target="_blank" rel="noopener noreferrer" class="btn-primary">
               ▶ YouTube 配信一覧へ
@@ -607,12 +613,12 @@
       <h2 class="section-title">動画</h2>
 
       <!-- 動画セクション冒頭：最新動画プレイヤー -->
-      <div class="latest-video-box">
+      <div id="latest-video-section" class="latest-video-box">
         <div class="latest-video-header">
           <span class="latest-label">🎬 最新の投稿・配信アーカイブ</span>
-          <span style="font-size: 0.82rem; color: #9ba1b0;">チャンネルID連携（自動更新）</span>
+          <span id="latest-video-title" class="latest-video-title">読み込み中...</span>
         </div>
-        <div class="video-wrapper">
+        <div id="latest-video-wrapper" class="video-wrapper">
           <iframe id="latest-yt-player"
             src=""
             title="いぬーる 最新動画"
@@ -786,13 +792,39 @@
   <script>
     const YOUTUBE_CHANNEL_ID = 'UC0cgRgovA84hfh-P7G-sSKw';
 
-    (function initLatestVideo() {
+    // YouTubeの公式RSSフィードから最新動画のIDを取得して単体動画として埋め込む
+    (async function initLatestVideo() {
       const player = document.getElementById('latest-yt-player');
-      if (YOUTUBE_CHANNEL_ID && YOUTUBE_CHANNEL_ID.startsWith('UC')) {
-        const uploadsPlaylistId = 'UU' + YOUTUBE_CHANNEL_ID.slice(2);
-        player.src = 'https://www.youtube.com/embed?listType=playlist&list=' + uploadsPlaylistId;
-      } else {
-        player.parentElement.style.display = 'none';
+      const titleEl = document.getElementById('latest-video-title');
+      const boxEl = document.getElementById('latest-video-section');
+
+      const rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + YOUTUBE_CHANNEL_ID;
+      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === 'ok' && data.items && data.items.length > 0) {
+          const latestItem = data.items[0];
+          let videoId = '';
+
+          if (latestItem.guid && latestItem.guid.includes('yt:video:')) {
+            videoId = latestItem.guid.split('yt:video:')[1];
+          } else if (latestItem.link && latestItem.link.includes('v=')) {
+            videoId = latestItem.link.split('v=')[1].split('&')[0];
+          }
+
+          if (videoId) {
+            player.src = 'https://www.youtube.com/embed/' + videoId;
+            titleEl.textContent = latestItem.title || '';
+            return;
+          }
+        }
+        // 取得できなかった場合はエラー画面を出さずに枠ごと非表示
+        boxEl.style.display = 'none';
+      } catch (e) {
+        boxEl.style.display = 'none';
       }
     })();
 
