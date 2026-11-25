@@ -65,8 +65,8 @@
 
     .nav-links {
       display: flex;
-      gap: 1.3rem;
-      font-size: 0.95rem;
+      gap: 1.2rem;
+      font-size: 0.92rem;
       font-weight: 600;
       flex-wrap: wrap;
     }
@@ -114,6 +114,8 @@
       font-weight: 700;
       font-size: 1.05rem;
       box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+      border: none;
+      cursor: pointer;
     }
 
     .btn-primary:hover {
@@ -317,7 +319,7 @@
       color: #ff4757;
     }
 
-    /* 大会・企画情報セクション（タブ切り替え） */
+    /* 大会・企画情報セクション */
     .event-container {
       background: #1a1d2d;
       border: 1px solid #2c3149;
@@ -428,7 +430,7 @@
     /* プロフィール & スケジュール */
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
       gap: 1.5rem;
     }
 
@@ -468,6 +470,29 @@
       margin-bottom: 0.8rem;
     }
 
+    /* レーダーチャート */
+    .radar-wrapper {
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid #2c3149;
+      text-align: center;
+    }
+
+    .radar-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #9ba1b0;
+      margin-bottom: 0.5rem;
+    }
+
+    .radar-svg {
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
     .schedule-list {
       list-style: none;
     }
@@ -492,6 +517,34 @@
       border-radius: 6px;
       font-weight: 700;
       font-size: 0.9rem;
+    }
+
+    .stream-examples {
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid #2c3149;
+    }
+
+    .stream-examples h4 {
+      font-size: 0.95rem;
+      color: #f0f2f8;
+      margin-bottom: 0.8rem;
+    }
+
+    .genre-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .genre-tag {
+      background: #0f111a;
+      border: 1px solid #2c3149;
+      color: #d0d5e2;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
     }
 
     /* LINKSセクション */
@@ -528,6 +581,101 @@
       flex-shrink: 0;
     }
 
+    /* お問い合わせセンター */
+    .contact-card {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .contact-lead {
+      font-size: 0.95rem;
+      color: #d0d5e2;
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-scopes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .scope-box {
+      background: #0f111a;
+      border: 1px solid #2c3149;
+      border-radius: 12px;
+      padding: 1.1rem 1.3rem;
+    }
+
+    .scope-box h4 {
+      font-size: 0.98rem;
+      color: #ff4757;
+      margin-bottom: 0.35rem;
+    }
+
+    .scope-box p {
+      font-size: 0.88rem;
+      color: #9ba1b0;
+    }
+
+    .mail-action-box {
+      background: linear-gradient(135deg, #232842 0%, #161929 100%);
+      border: 1px solid #3e4566;
+      border-radius: 12px;
+      padding: 1.3rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .mail-address {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      word-break: break-all;
+    }
+
+    .mail-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .btn-copy {
+      background: #2c3149;
+      color: #fff;
+      border: 1px solid #454d70;
+      padding: 0.65rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .btn-copy:hover {
+      background: #3a4161;
+    }
+
+    .btn-mail {
+      background: #ff4757;
+      color: #fff;
+      padding: 0.65rem 1.3rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-mail:hover {
+      background: #ff6b81;
+    }
+
     /* フッター */
     footer {
       text-align: center;
@@ -541,7 +689,7 @@
       .hero h1 { font-size: 2rem; }
       .logo { font-size: 1.2rem; }
       .logo .sub-tagline { font-size: 0.8rem; }
-      .nav-links { gap: 0.9rem; font-size: 0.85rem; }
+      .nav-links { gap: 0.8rem; font-size: 0.84rem; }
       .event-item a,
       .event-item .event-card-disabled { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     }
@@ -558,6 +706,7 @@
         <a href="#events">大会・企画</a>
         <a href="#profile">プロフィール</a>
         <a href="#links">LINKS</a>
+        <a href="#contact">お問い合わせ</a>
       </nav>
     </div>
   </header>
@@ -612,7 +761,6 @@
     <section id="videos">
       <h2 class="section-title">動画</h2>
 
-      <!-- 動画セクション冒頭：最新動画プレイヤー -->
       <div id="latest-video-section" class="latest-video-box">
         <div class="latest-video-header">
           <span class="latest-label">🎬 最新の投稿・配信アーカイブ</span>
@@ -692,19 +840,20 @@
         <div id="tab-player" class="tab-panel">
           <ul class="event-list">
             <li class="event-item">
-              <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B" target="_blank" rel="noopener noreferrer">
+              <div class="event-card-disabled">
                 <div class="event-info">
-                  <span class="event-name">【サンプル】大会・イベント名（選手出場）</span>
-                  <span class="event-meta">2026年 / チーム出場・本配信アーカイブ</span>
+                  <span class="event-name">出場大会・企画情報</span>
+                  <span class="event-meta">詳細ページ準備中</span>
                 </div>
-                <span class="event-arrow">詳細・配信を見る →</span>
-              </a>
+                <span class="event-coming-soon">Coming Soon</span>
+              </div>
             </li>
           </ul>
         </div>
       </div>
     </section>
 
+    <!-- プロフィールセクション -->
     <section id="profile">
       <h2 class="section-title">プロフィール</h2>
       <div class="grid-2">
@@ -719,6 +868,12 @@
           <p style="font-size: 0.95rem;">
             DBD Creator Gold（公認クリエイター）として活動中。普段のラジオのようなゲーム配信・雑談に加えて、大会MCや実況なども務めています。初見さんもコメント大歓迎ですので、気軽に遊びに来てください！
           </p>
+
+          <!-- 7項目レーダーチャート（MAX 8） -->
+          <div class="radar-wrapper">
+            <div class="radar-title">📊 配信ステータス（MAX 8）</div>
+            <svg id="status-radar" class="radar-svg" viewBox="0 0 360 320" aria-label="いぬーる 配信ステータス レーダーチャート"></svg>
+          </div>
         </div>
 
         <div class="card">
@@ -727,10 +882,21 @@
             <li><span class="day-badge">平日</span> <span>21:00〜</span></li>
             <li><span class="day-badge">土日</span> <span>不定期</span></li>
           </ul>
+
+          <div class="stream-examples">
+            <h4>🎮 配信例</h4>
+            <div class="genre-tags">
+              <span class="genre-tag">Dead by Daylight</span>
+              <span class="genre-tag">ホラーゲーム</span>
+              <span class="genre-tag">インディーズゲーム</span>
+              <span class="genre-tag">FPS</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- LINKSセクション -->
     <section id="links">
       <h2 class="section-title">LINKS</h2>
       <div class="links-grid">
@@ -783,6 +949,38 @@
         </a>
       </div>
     </section>
+
+    <!-- お問い合わせセンターセクション -->
+    <section id="contact">
+      <h2 class="section-title">お問い合わせセンター</h2>
+      <div class="contact-card">
+        <p class="contact-lead">
+          お仕事・企画のご相談や出演依頼などは、下記のメールアドレスまでお気軽にご連絡ください。
+        </p>
+
+        <div class="contact-scopes">
+          <div class="scope-box">
+            <h4>🎮 ゲーム案件・PRのご依頼</h4>
+            <p>ゲームの先行プレイやPR、タイアップ配信・動画制作など</p>
+          </div>
+          <div class="scope-box">
+            <h4>🎙️ 大会・イベント出演のご依頼</h4>
+            <p>ゲーム大会・企画のMC、実況・解説、ゲスト出演など</p>
+          </div>
+        </div>
+
+        <div class="mail-action-box">
+          <div>
+            <div style="font-size: 0.8rem; color: #9ba1b0; margin-bottom: 0.2rem;">連絡先メールアドレス</div>
+            <div id="contact-email" class="mail-address">inu.ru.info@gmail.com</div>
+          </div>
+          <div class="mail-btns">
+            <button type="button" id="copy-email-btn" class="btn-copy" onclick="copyEmail()">📋 アドレスをコピー</button>
+            <a href="mailto:inu.ru.info@gmail.com?subject=%E3%80%90%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E3%80%91%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B%E6%A7%98%E3%81%B8" class="btn-mail">✉️ メールを作成</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -792,7 +990,7 @@
   <script>
     const YOUTUBE_CHANNEL_ID = 'UC0cgRgovA84hfh-P7G-sSKw';
 
-    // YouTubeの公式RSSフィードから最新動画のIDを取得して単体動画として埋め込む
+    // YouTube公式RSSフィードから最新動画のIDを取得
     (async function initLatestVideo() {
       const player = document.getElementById('latest-yt-player');
       const titleEl = document.getElementById('latest-video-title');
@@ -821,11 +1019,117 @@
             return;
           }
         }
-        // 取得できなかった場合はエラー画面を出さずに枠ごと非表示
         boxEl.style.display = 'none';
       } catch (e) {
         boxEl.style.display = 'none';
       }
+    })();
+
+    // 7項目レーダーチャート描画（MAX 8）
+    (function drawRadarChart() {
+      const svg = document.getElementById('status-radar');
+      if (!svg) return;
+
+      const stats = [
+        { label: 'トーク', value: 7 },
+        { label: '技術', value: 4 },
+        { label: '企画力', value: 4 },
+        { label: 'テンション', value: 8 },
+        { label: 'リスナー愛', value: 7 },
+        { label: '絶叫', value: 6 },
+        { label: '配信頻度', value: 5 }
+      ];
+
+      const maxVal = 8;
+      const cx = 180;
+      const cy = 160;
+      const radius = 100;
+      const count = stats.length;
+      const ns = 'http://www.w3.org/2000/svg';
+
+      // 目盛り（2, 4, 6, 8の4段階）
+      [2, 4, 6, 8].forEach(level => {
+        const r = (radius * level) / maxVal;
+        const pts = stats.map((_, i) => {
+          const angle = (Math.PI * 2 * i) / count - Math.PI / 2;
+          return (cx + r * Math.cos(angle)).toFixed(1) + ',' + (cy + r * Math.sin(angle)).toFixed(1);
+        }).join(' ');
+
+        const poly = document.createElementNS(ns, 'polygon');
+        poly.setAttribute('points', pts);
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', level === 8 ? '#454d70' : '#2c3149');
+        poly.setAttribute('stroke-width', level === 8 ? '1.5' : '1');
+        svg.appendChild(poly);
+      });
+
+      // 軸線
+      stats.forEach((_, i) => {
+        const angle = (Math.PI * 2 * i) / count - Math.PI / 2;
+        const line = document.createElementNS(ns, 'line');
+        line.setAttribute('x1', cx);
+        line.setAttribute('y1', cy);
+        line.setAttribute('x2', (cx + radius * Math.cos(angle)).toFixed(1));
+        line.setAttribute('y2', (cy + radius * Math.sin(angle)).toFixed(1));
+        line.setAttribute('stroke', '#2c3149');
+        line.setAttribute('stroke-width', '1');
+        svg.appendChild(line);
+      });
+
+      // ステータス塗りつぶし多角形
+      const dataPoints = stats.map((s, i) => {
+        const r = (radius * s.value) / maxVal;
+        const angle = (Math.PI * 2 * i) / count - Math.PI / 2;
+        return {
+          x: cx + r * Math.cos(angle),
+          y: cy + r * Math.sin(angle)
+        };
+      });
+
+      const dataPoly = document.createElementNS(ns, 'polygon');
+      dataPoly.setAttribute('points', dataPoints.map(p => p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' '));
+      dataPoly.setAttribute('fill', 'rgba(255, 71, 87, 0.3)');
+      dataPoly.setAttribute('stroke', '#ff4757');
+      dataPoly.setAttribute('stroke-width', '2.5');
+      svg.appendChild(dataPoly);
+
+      // 頂点ドット & ラベル
+      stats.forEach((s, i) => {
+        const p = dataPoints[i];
+        const dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', p.x.toFixed(1));
+        dot.setAttribute('cy', p.y.toFixed(1));
+        dot.setAttribute('r', '4');
+        dot.setAttribute('fill', '#ff6b81');
+        dot.setAttribute('stroke', '#fff');
+        dot.setAttribute('stroke-width', '1.5');
+        svg.appendChild(dot);
+
+        const angle = (Math.PI * 2 * i) / count - Math.PI / 2;
+        const labelR = radius + 24;
+        const lx = cx + labelR * Math.cos(angle);
+        const ly = cy + labelR * Math.sin(angle);
+
+        const text = document.createElementNS(ns, 'text');
+        text.setAttribute('x', lx.toFixed(1));
+        text.setAttribute('y', ly.toFixed(1));
+        text.setAttribute('fill', '#f0f2f8');
+        text.setAttribute('font-size', '12');
+        text.setAttribute('font-weight', '700');
+        text.setAttribute('dominant-baseline', 'middle');
+
+        const cos = Math.cos(angle);
+        if (cos > 0.25) {
+          text.setAttribute('text-anchor', 'start');
+        } else if (cos < -0.25) {
+          text.setAttribute('text-anchor', 'end');
+        } else {
+          text.setAttribute('text-anchor', 'middle');
+        }
+
+        text.textContent = s.label + ' ' + s.value;
+        svg.appendChild(text);
+      });
     })();
 
     function loadVideo() {
@@ -866,6 +1170,21 @@
       });
       document.getElementById('tab-' + tabName).classList.add('active');
       btn.classList.add('active');
+    }
+
+    function copyEmail() {
+      const email = 'inu.ru.info@gmail.com';
+      const btn = document.getElementById('copy-email-btn');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(email).then(() => {
+          btn.textContent = '✅ コピーしました！';
+          setTimeout(() => {
+            btn.textContent = '📋 アドレスをコピー';
+          }, 2000);
+        });
+      } else {
+        alert('メールアドレス: ' + email);
+      }
     }
   </script>
 </body>
