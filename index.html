@@ -65,9 +65,10 @@
 
     .nav-links {
       display: flex;
-      gap: 1.4rem;
+      gap: 1.3rem;
       font-size: 0.95rem;
       font-weight: 600;
+      flex-wrap: wrap;
     }
 
     .nav-links a:hover {
@@ -286,6 +287,114 @@
       color: #ff4757;
     }
 
+    /* 大会・企画情報セクション（タブ切り替え） */
+    .event-container {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.8rem;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #2c3149;
+      padding-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: #0f111a;
+      color: #9ba1b0;
+      border: 1px solid #2c3149;
+      padding: 0.65rem 1.4rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: #f0f2f8;
+      border-color: #4b5278;
+    }
+
+    .tab-btn.active {
+      background: #ff4757;
+      color: #fff;
+      border-color: #ff4757;
+      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.35);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .event-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .event-item a,
+    .event-item .event-card-disabled {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      background: #0f111a;
+      border: 1px solid #2c3149;
+      border-radius: 12px;
+      padding: 1rem 1.3rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .event-item a:hover {
+      border-color: #ff4757;
+      transform: translateX(4px);
+    }
+
+    .event-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .event-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #f0f2f8;
+    }
+
+    .event-meta {
+      font-size: 0.85rem;
+      color: #9ba1b0;
+    }
+
+    .event-arrow {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ff4757;
+      white-space: nowrap;
+    }
+
+    .event-coming-soon {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #9ba1b0;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
     /* プロフィール & スケジュール */
     .grid-2 {
       display: grid;
@@ -402,7 +511,9 @@
       .hero h1 { font-size: 2rem; }
       .logo { font-size: 1.2rem; }
       .logo .sub-tagline { font-size: 0.8rem; }
-      .nav-links { gap: 1rem; font-size: 0.88rem; }
+      .nav-links { gap: 0.9rem; font-size: 0.85rem; }
+      .event-item a,
+      .event-item .event-card-disabled { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     }
   </style>
 </head>
@@ -414,6 +525,7 @@
       <nav class="nav-links">
         <a href="#live">LIVE</a>
         <a href="#videos">動画</a>
+        <a href="#events">大会・企画</a>
         <a href="#profile">プロフィール</a>
         <a href="#links">LINKS</a>
       </nav>
@@ -493,6 +605,56 @@
           </div>
           <span class="badge-tag">YouTubeで開く →</span>
         </a>
+      </div>
+    </section>
+
+    <!-- 大会・企画情報セクション -->
+    <section id="events">
+      <h2 class="section-title">大会・企画情報</h2>
+      <div class="event-container">
+        <div class="tab-buttons">
+          <button class="tab-btn active" onclick="switchEventTab('caster', this)">🎙️ 実況・解説</button>
+          <button class="tab-btn" onclick="switchEventTab('player', this)">🏆 出場</button>
+        </div>
+
+        <!-- 実況・解説タブ -->
+        <div id="tab-caster" class="tab-panel active">
+          <ul class="event-list">
+            <li class="event-item">
+              <a href="https://soradbdkkp-lang.github.io/frog-good-guy-cup/" target="_blank" rel="noopener noreferrer">
+                <div class="event-info">
+                  <span class="event-name">ふろぐ Good Guy Cup</span>
+                  <span class="event-meta">大会特設ページ</span>
+                </div>
+                <span class="event-arrow">詳細を見る →</span>
+              </a>
+            </li>
+            <li class="event-item">
+              <div class="event-card-disabled">
+                <div class="event-info">
+                  <span class="event-name">INR Custom Fever</span>
+                  <span class="event-meta">詳細ページ準備中</span>
+                </div>
+                <span class="event-coming-soon">Coming Soon</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 出場タブ -->
+        <div id="tab-player" class="tab-panel">
+          <ul class="event-list">
+            <li class="event-item">
+              <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B" target="_blank" rel="noopener noreferrer">
+                <div class="event-info">
+                  <span class="event-name">【サンプル】大会・イベント名（選手出場）</span>
+                  <span class="event-meta">2026年 / チーム出場・本配信アーカイブ</span>
+                </div>
+                <span class="event-arrow">詳細・配信を見る →</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -608,6 +770,17 @@
       } else {
         alert('有効なYouTube動画のURL、または11桁の動画IDを入力してください。');
       }
+    }
+
+    function switchEventTab(tabName, btn) {
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(button => {
+        button.classList.remove('active');
+      });
+      document.getElementById('tab-' + tabName).classList.add('active');
+      btn.classList.add('active');
     }
   </script>
 </body>
