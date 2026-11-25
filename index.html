@@ -151,7 +151,7 @@
       background: linear-gradient(135deg, #232842 0%, #161929 100%);
       border: 1px dashed #3e4566;
       border-radius: 12px;
-      padding: 3rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       text-align: center;
     }
 
@@ -190,18 +190,16 @@
     }
 
     .video-wrapper {
-      display: none;
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       border-radius: 12px;
       background: #000;
-      margin-bottom: 1rem;
     }
 
-    .video-wrapper.active {
-      display: block;
+    .video-wrapper.hidden-box {
+      display: none;
     }
 
     .video-wrapper iframe {
@@ -250,6 +248,32 @@
     }
 
     /* 動画セクション */
+    .latest-video-box {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .latest-video-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .latest-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ff4757;
+      background: rgba(255, 71, 87, 0.15);
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+    }
+
     .video-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -545,7 +569,7 @@
     <section id="live">
       <h2 class="section-title">LIVE</h2>
       <div class="stream-card">
-        <div id="video-box" class="video-wrapper">
+        <div id="video-box" class="video-wrapper hidden-box">
           <iframe id="yt-player"
             src=""
             title="いぬーる YouTube Stream"
@@ -556,7 +580,7 @@
 
         <div id="stream-banner" class="stream-banner">
           <h3>📡 配信チャンネルはこちら</h3>
-          <p>最新のライブ配信や待機所はYouTube・Twitchのチャンネルページからチェックできます。</p>
+          <p>YouTubeの仕様上、進行中のライブ枠を完全自動判別するにはURL指定（またはAPI連携）が必要です。配信枠のURLを貼るか、各チャンネルから直接ご覧ください。</p>
           <div class="stream-btn-group">
             <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B/streams" target="_blank" rel="noopener noreferrer" class="btn-primary">
               ▶ YouTube 配信一覧へ
@@ -569,10 +593,10 @@
 
         <div class="stream-controls">
           <span style="font-size: 0.85rem; color: #9ba1b0;">
-            ※この画面で直接見たいYouTube動画・配信枠がある場合はURLを入力：
+            ※配信枠URLを貼るとこの場で再生できます：
           </span>
           <div class="input-group">
-            <input type="text" id="video-url-input" placeholder="https://www.youtube.com/watch?v=...">
+            <input type="text" id="video-url-input" placeholder="https://www.youtube.com/watch?v=... または /live/...">
             <button class="btn-small" onclick="loadVideo()">プレイヤーに読込</button>
           </div>
         </div>
@@ -581,6 +605,23 @@
 
     <section id="videos">
       <h2 class="section-title">動画</h2>
+
+      <!-- 動画セクション冒頭：最新動画プレイヤー -->
+      <div class="latest-video-box">
+        <div class="latest-video-header">
+          <span class="latest-label">🎬 最新の投稿・配信アーカイブ</span>
+          <span style="font-size: 0.82rem; color: #9ba1b0;">チャンネルID連携（自動更新）</span>
+        </div>
+        <div class="video-wrapper">
+          <iframe id="latest-yt-player"
+            src=""
+            title="いぬーる 最新動画"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
       <div class="video-cards">
         <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B/streams" target="_blank" rel="noopener noreferrer" class="video-link-card">
           <div>
@@ -743,6 +784,18 @@
   </footer>
 
   <script>
+    const YOUTUBE_CHANNEL_ID = 'UC0cgRgovA84hfh-P7G-sSKw';
+
+    (function initLatestVideo() {
+      const player = document.getElementById('latest-yt-player');
+      if (YOUTUBE_CHANNEL_ID && YOUTUBE_CHANNEL_ID.startsWith('UC')) {
+        const uploadsPlaylistId = 'UU' + YOUTUBE_CHANNEL_ID.slice(2);
+        player.src = 'https://www.youtube.com/embed?listType=playlist&list=' + uploadsPlaylistId;
+      } else {
+        player.parentElement.style.display = 'none';
+      }
+    })();
+
     function loadVideo() {
       const input = document.getElementById('video-url-input').value.trim();
       if (!input) return;
@@ -765,7 +818,7 @@
 
       if (videoId) {
         document.getElementById('yt-player').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
-        document.getElementById('video-box').classList.add('active');
+        document.getElementById('video-box').classList.remove('hidden-box');
         document.getElementById('stream-banner').style.display = 'none';
       } else {
         alert('有効なYouTube動画のURL、または11桁の動画IDを入力してください。');
