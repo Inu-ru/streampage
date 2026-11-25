@@ -547,6 +547,57 @@
       font-weight: 600;
     }
 
+    /* 配信頻度 円グラフ */
+    .pie-wrapper {
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid #2c3149;
+    }
+
+    .pie-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #f0f2f8;
+      margin-bottom: 0.9rem;
+    }
+
+    .pie-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+    }
+
+    .pie-svg {
+      width: 175px;
+      height: 175px;
+      flex-shrink: 0;
+    }
+
+    .pie-legend {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+    }
+
+    .pie-legend li {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: #e2e6f0;
+      font-weight: 600;
+    }
+
+    .pie-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
     /* LINKSセクション */
     .links-grid {
       display: grid;
@@ -892,6 +943,15 @@
               <span class="genre-tag">FPS</span>
             </div>
           </div>
+
+          <!-- 配信頻度 円グラフ -->
+          <div class="pie-wrapper">
+            <div class="pie-title">🥧 配信ジャンル比率</div>
+            <div class="pie-content">
+              <svg id="genre-pie" class="pie-svg" viewBox="0 0 180 180" aria-label="配信ジャンル比率 円グラフ"></svg>
+              <ul id="genre-pie-legend" class="pie-legend"></ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1129,6 +1189,64 @@
 
         text.textContent = s.label + ' ' + s.value;
         svg.appendChild(text);
+      });
+    })();
+
+    // 配信ジャンル比率 円グラフ描画
+    (function drawPieChart() {
+      const svg = document.getElementById('genre-pie');
+      const legend = document.getElementById('genre-pie-legend');
+      if (!svg || !legend) return;
+
+      const items = [
+        { label: 'Dead by Daylight', percent: 70, color: '#ff4757' },
+        { label: 'ホラーゲーム', percent: 15, color: '#9146ff' },
+        { label: 'FPS', percent: 5, color: '#3742fa' },
+        { label: 'インディーズ', percent: 5, color: '#ffa502' },
+        { label: 'その他（雑談等）', percent: 5, color: '#2ed573' }
+      ];
+
+      const cx = 90;
+      const cy = 90;
+      const r = 78;
+      const ns = 'http://www.w3.org/2000/svg';
+      let currentAngle = -Math.PI / 2;
+
+      items.forEach(item => {
+        const sliceAngle = (Math.PI * 2 * item.percent) / 100;
+        const x1 = cx + r * Math.cos(currentAngle);
+        const y1 = cy + r * Math.sin(currentAngle);
+        const endAngle = currentAngle + sliceAngle;
+        const x2 = cx + r * Math.cos(endAngle);
+        const y2 = cy + r * Math.sin(endAngle);
+        const largeArc = item.percent > 50 ? 1 : 0;
+
+        const pathData = [
+          `M ${cx} ${cy}`,
+          `L ${x1.toFixed(2)} ${y1.toFixed(2)}`,
+          `A ${r} ${r} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`,
+          'Z'
+        ].join(' ');
+
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', pathData);
+        path.setAttribute('fill', item.color);
+        path.setAttribute('stroke', '#1a1d2d');
+        path.setAttribute('stroke-width', '2');
+        svg.appendChild(path);
+
+        currentAngle = endAngle;
+
+        const li = document.createElement('li');
+        const dot = document.createElement('span');
+        dot.className = 'pie-dot';
+        dot.style.backgroundColor = item.color;
+        li.appendChild(dot);
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = `${item.label} ${item.percent}%`;
+        li.appendChild(textSpan);
+        legend.appendChild(li);
       });
     })();
 
