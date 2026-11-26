@@ -99,7 +99,12 @@
     .profile-hero-info { flex: 1; min-width: 260px; }
     .profile-hero-info h2 { font-size: 1.8rem; margin-bottom: 0.8rem; color: #fff; }
     .basic-list { list-style: none; margin-bottom: 1.2rem; }
-    .basic-list li { margin-bottom: 0.35rem; font-size: 0.98rem; color: #e2e6f0; }
+    .basic-list li { margin-bottom: 0.55rem; font-size: 0.98rem; color: #e2e6f0; }
+    .debut-dates {
+      padding-left: 1rem;
+      margin-top: 0.2rem;
+      color: #f0f2f8;
+    }
     .intro-text {
       background: #0f111a;
       border: 1px solid #2c3149;
@@ -128,19 +133,57 @@
     .sub-block-title { font-weight: 700; color: #ffd166; margin-bottom: 0.25rem; }
     .indent-text { padding-left: 1.2rem; color: #d0d5e2; font-size: 0.95rem; }
 
+    .video-embed-box {
+      margin-top: 1.2rem;
+    }
+    .video-embed-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffd166;
+      margin-bottom: 0.6rem;
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #000;
+      border: 1px solid #2c3149;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     .tag-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0.8rem;
+      gap: 0.85rem;
     }
-    .tag-box {
+    .tag-btn-card {
       background: #0f111a;
       border: 1px solid #2c3149;
-      border-radius: 10px;
-      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      padding: 0.95rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.45rem;
+      transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
+    }
+    .tag-btn-card:hover {
+      border-color: #5bc4f4;
+      background-color: #151929;
+      transform: translateY(-2px);
     }
     .tag-label { font-size: 0.82rem; color: #9ba1b0; display: block; }
-    .tag-value { font-size: 1.05rem; font-weight: 700; color: #5bc4f4; }
+    .tag-value { font-size: 1.08rem; font-weight: 700; color: #5bc4f4; }
+    .tag-search-hint { font-size: 0.78rem; color: #ffd166; font-weight: 600; }
 
     .member-grid {
       display: grid;
@@ -170,6 +213,28 @@
       font-size: 0.9rem;
     }
     .member-tier p { font-size: 0.92rem; color: #d0d5e2; }
+
+    .member-join-wrap {
+      margin-top: 1.4rem;
+      text-align: center;
+    }
+    .btn-member-join {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background-color: #ff4757;
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 4px 14px rgba(255, 71, 87, 0.35);
+      transition: background-color 0.2s, transform 0.2s;
+    }
+    .btn-member-join:hover {
+      background-color: #ff6b81;
+      transform: translateY(-1px);
+    }
 
     .btn-booth {
       display: inline-flex;
@@ -248,7 +313,13 @@
       <div class="profile-hero-info">
         <h2>いぬーる</h2>
         <ul class="basic-list">
-          <li><strong>【デビュー】</strong>2024年10月9日（活動スタート）、2024年11月30日（初配信）</li>
+          <li>
+            <strong>【デビュー】</strong>
+            <div class="debut-dates">
+              2024年10月9日（活動スタート）<br>
+              2024年11月30日（初配信）
+            </div>
+          </li>
           <li><strong>【誕生日】</strong>9月20日</li>
           <li><strong>【星座】</strong>乙女座</li>
           <li><strong>【MBTI】</strong>ENTP, ENFJ</li>
@@ -273,6 +344,10 @@
         <div class="sub-block-title">朝活</div>
         <div class="indent-text">不定期</div>
       </div>
+      <div class="sub-block">
+        <div class="sub-block-title">配信例</div>
+        <div class="indent-text">Dead by Daylight, FPS系, 7 Days to Die, ホラーゲーム, インディーズ</div>
+      </div>
     </div>
 
     <div class="detail-card">
@@ -282,27 +357,46 @@
         <li>・ショート動画も週数回</li>
         <li>・限定動画：ラジオ、Vlogなど</li>
       </ul>
+
+      <div class="video-embed-box">
+        <div class="video-embed-label">🎬 最新の動画</div>
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/HOMg3pK6EYk"
+            title="いぬーる 最新動画"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
     </div>
 
     <div class="detail-card">
       <h3>タグ</h3>
       <div class="tag-grid">
-        <div class="tag-box">
+        <a href="https://x.com/search?q=%23%E3%81%93%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B&src=typed_query" target="_blank" rel="noopener noreferrer" class="tag-btn-card">
           <span class="tag-label">応援・FANタグ</span>
           <span class="tag-value">#こいぬーる</span>
-        </div>
-        <div class="tag-box">
+          <span class="tag-search-hint">𝕏 で検索 →</span>
+        </a>
+
+        <a href="https://x.com/search?q=%23%E3%82%8F%E3%82%93%E3%81%82%E3%83%BC%E3%82%8B&src=typed_query" target="_blank" rel="noopener noreferrer" class="tag-btn-card">
           <span class="tag-label">ファンアートタグ</span>
           <span class="tag-value">#わんあーる</span>
-        </div>
-        <div class="tag-box">
+          <span class="tag-search-hint">𝕏 で検索 →</span>
+        </a>
+
+        <a href="https://x.com/search?q=%23%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B%E6%84%9B%E3%81%A6%E3%82%80&src=typed_query" target="_blank" rel="noopener noreferrer" class="tag-btn-card">
           <span class="tag-label">グッズタグ</span>
           <span class="tag-value">#いぬーる愛てむ</span>
-        </div>
-        <div class="tag-box">
+          <span class="tag-search-hint">𝕏 で検索 →</span>
+        </a>
+
+        <a href="https://x.com/search?q=%23%E3%81%8D%E3%82%8A%E3%81%A8%E3%81%AC%E3%83%BC%E3%82%8B&src=typed_query" target="_blank" rel="noopener noreferrer" class="tag-btn-card">
           <span class="tag-label">切り取りタグ</span>
           <span class="tag-value">#きりとぬーる</span>
-        </div>
+          <span class="tag-search-hint">𝕏 で検索 →</span>
+        </a>
       </div>
     </div>
 
@@ -325,6 +419,12 @@
             オーツラテ1杯分のお値段(わんコイン)でいぬーるを応援📣
           </p>
         </div>
+      </div>
+
+      <div class="member-join-wrap">
+        <a href="https://www.youtube.com/channel/UC0cgRgovA84hfh-P7G-sSKw/join" target="_blank" rel="noopener noreferrer" class="btn-member-join">
+          ⭐ メンバー加入はこちらから →
+        </a>
       </div>
     </div>
 
