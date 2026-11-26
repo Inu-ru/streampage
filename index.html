@@ -27,15 +27,20 @@
       text-decoration: none;
     }
 
-    /* 初回アクセス用トランジション */
+    /* 初回アクセス用トランジション（PC・スマホ対応） */
     #intro-transition {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       z-index: 9999;
       background-color: #0f111a;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
       opacity: 1;
       visibility: visible;
       transition: opacity 0.45s ease, visibility 0.45s ease;
@@ -54,8 +59,17 @@
     #intro-video {
       width: 100%;
       height: 100%;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    /* スマホ・縦長画面では映像が見切れないようにフィットさせる */
+    @media (max-width: 768px), (orientation: portrait) {
+      #intro-video {
+        object-fit: contain;
+      }
     }
 
     /* ヘッダー */
@@ -914,7 +928,7 @@
 
   <!-- 初回アクセス時のみ再生されるトランジション -->
   <div id="intro-transition" aria-hidden="true">
-    <video id="intro-video" autoplay muted playsinline preload="auto">
+    <video id="intro-video" autoplay muted playsinline webkit-playsinline preload="auto">
       <source src="INR.transition.normal.webm" type="video/webm">
     </video>
   </div>
@@ -1068,6 +1082,7 @@
                 <span class="event-arrow">詳細を見る →</span>
               </a>
             </li>
+          </ul>
         </div>
 
         <!-- 出場タブ -->
