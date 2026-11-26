@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ファンアート（FA） | いぬーる ～ラジオのようなゲーム配信～</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      background-color: #0f111a;
+      color: #f0f2f8;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* 共通ヘッダー */
+    header {
+      background: rgba(15, 17, 26, 0.95);
+      border-bottom: 1px solid #2c3149;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.5rem;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+    .header-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #5bc4f4;
+      box-shadow: 0 0 8px #5bc4f4, 0 0 16px rgba(91, 196, 244, 0.65);
+      flex-shrink: 0;
+    }
+    .logo .sub-tagline { font-size: 0.9rem; font-weight: 500; color: #9ba1b0; }
+    .nav-select-wrapper { position: relative; display: inline-flex; align-items: center; }
+    .nav-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: #1a1d2d;
+      color: #f0f2f8;
+      border: 1px solid #3e4566;
+      border-radius: 10px;
+      padding: 0.55rem 2.2rem 0.55rem 1rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .nav-select:hover, .nav-select:focus { border-color: #ff4757; outline: none; }
+    .nav-select option { background-color: #1a1d2d; color: #f0f2f8; }
+    .nav-select-arrow { position: absolute; right: 0.8rem; pointer-events: none; font-size: 0.72rem; color: #ff4757; }
+
+    /* メイン */
+    main { max-width: 800px; margin: 0 auto; padding: 4rem 1.5rem 6rem; text-align: center; }
+    .prep-card {
+      background: #1a1d2d;
+      border: 1px dashed #454d70;
+      border-radius: 16px;
+      padding: 3.5rem 2rem;
+    }
+    .prep-badge {
+      display: inline-block;
+      background: rgba(91, 196, 244, 0.15);
+      color: #5bc4f4;
+      border: 1px solid #5bc4f4;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .prep-card h1 { font-size: 1.8rem; margin-bottom: 1rem; }
+    .prep-card p { color: #9ba1b0; font-size: 0.98rem; margin-bottom: 1.5rem; }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #232842;
+      border: 1px solid #454d70;
+      color: #fff;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+    }
+    .btn-back:hover { border-color: #5bc4f4; }
+
+    footer {
+      text-align: center;
+      padding: 2.2rem 1rem;
+      border-top: 1px solid #2c3149;
+      color: #9ba1b0;
+      font-size: 0.85rem;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+    .footer-links a { color: #d0d5e2; font-weight: 600; }
+    .footer-links a:hover { color: #5bc4f4; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="images.icon.jpg" alt="いぬーる アイコン" class="header-icon">
+        <span>いぬーる</span>
+        <span class="sub-tagline">～ラジオのようなゲーム配信～</span>
+      </a>
+      <div class="nav-select-wrapper">
+        <select class="nav-select" aria-label="メニュー移動" onchange="if(this.value) window.location.href=this.value;">
+          <option value="">≡MENU</option>
+          <option value="index.html#live">LIVE</option>
+          <option value="index.html#videos">動画</option>
+          <option value="index.html#events">大会・企画</option>
+          <option value="index.html#profile">プロフィール</option>
+          <option value="index.html#links">LINKS</option>
+          <option value="index.html#appearances">出演等</option>
+          <option value="index.html#gallery">ギャラリー</option>
+          <option value="index.html#contact">お問い合わせ</option>
+        </select>
+        <span class="nav-select-arrow">▼</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="prep-card">
+      <div class="prep-badge">COMING SOON</div>
+      <h1>🎨 ファンアート（FA）ページ準備中</h1>
+      <p>
+        現在、皆様からいただいた素敵なファンアートの掲載ページを準備中です！<br>
+        SNSへファンアートをご投稿の際は、ぜひタグ <strong>#わんあーる</strong> をつけてお寄せください。
+      </p>
+      <a href="index.html" class="btn-back">← トップページへ戻る</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="sitemap.html">サイトマップ</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+    </div>
+    <div>&copy; 2026 INU-RU ALL RIGHTS RESERVED.</div>
+  </footer>
+
+</body>
+</html>
