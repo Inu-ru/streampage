@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INR DBD CUSTOM FEVER | いぬーる ～ラジオのようなゲーム配信～</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      background-color: #0f111a;
+      color: #f0f2f8;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* 共通ヘッダー */
+    header {
+      background: rgba(15, 17, 26, 0.95);
+      border-bottom: 1px solid #2c3149;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.5rem;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .header-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #5bc4f4;
+      box-shadow: 0 0 8px #5bc4f4, 0 0 16px rgba(91, 196, 244, 0.65);
+      flex-shrink: 0;
+    }
+
+    .logo .sub-tagline {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #9ba1b0;
+    }
+
+    .nav-select-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .nav-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: #1a1d2d;
+      color: #f0f2f8;
+      border: 1px solid #3e4566;
+      border-radius: 10px;
+      padding: 0.55rem 2.2rem 0.55rem 1rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .nav-select:hover,
+    .nav-select:focus {
+      border-color: #ff4757;
+      outline: none;
+    }
+
+    .nav-select option {
+      background-color: #1a1d2d;
+      color: #f0f2f8;
+    }
+
+    .nav-select-arrow {
+      position: absolute;
+      right: 0.8rem;
+      pointer-events: none;
+      font-size: 0.72rem;
+      color: #ff4757;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      padding: 4rem 1.5rem 3.5rem;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(91, 196, 244, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(255, 107, 181, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at top, #1f243d 0%, #0f111a 75%);
+      border-bottom: 1px solid #2c3149;
+    }
+
+    .hero-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .esports-pill {
+      display: inline-block;
+      background: rgba(255, 140, 36, 0.14);
+      border: 1px solid rgba(255, 140, 36, 0.5);
+      color: #ff9d42;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* タイトルロゴ：INR（I,R=#5BC4F4 / N=オレンジ）+ DBD CUSTOM FEVER（小さめ・ピンク） */
+    .tournament-title-wrap {
+      margin-bottom: 2.2rem;
+    }
+
+    .inr-main-title {
+      font-size: clamp(3.6rem, 11vw, 6.2rem);
+      font-weight: 900;
+      line-height: 1.02;
+      letter-spacing: 0.06em;
+      text-shadow: 0 6px 28px rgba(0, 0, 0, 0.55);
+    }
+
+    .inr-char-ir {
+      color: #5bc4f4;
+    }
+
+    .inr-char-n {
+      color: #ff8c24;
+    }
+
+    .dbd-sub-title {
+      margin-top: 0.45rem;
+      font-size: clamp(1.05rem, 3vw, 1.55rem);
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: #ff6bb5;
+      text-shadow: 0 0 18px rgba(255, 107, 181, 0.35);
+    }
+
+    /* ヒーロー画像並び（INR LOGO.png & images.banner.png） */
+    .hero-visuals {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
+      gap: 1.5rem;
+      align-items: center;
+      margin: 0 auto 2.2rem;
+      max-width: 900px;
+    }
+
+    .hero-visual-card {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 18px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 240px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .hero-visual-card:hover {
+      transform: translateY(-3px);
+      border-color: #5bc4f4;
+    }
+
+    .hero-visual-card img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .hero-lead {
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      color: #d0d5e2;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn-accent-pink {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: #ff6bb5;
+      color: #0f111a;
+      padding: 0.85rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.98rem;
+      box-shadow: 0 4px 16px rgba(255, 107, 181, 0.35);
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-accent-pink:hover {
+      background-color: #ff88c4;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-cyan {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: #1a1d2d;
+      color: #5bc4f4;
+      border: 1px solid #5bc4f4;
+      padding: 0.85rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .btn-outline-cyan:hover {
+      background-color: #5bc4f4;
+      color: #0f111a;
+    }
+
+    /* メインコンテンツ */
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 84px;
+    }
+
+    .section-title {
+      font-size: 1.55rem;
+      margin-bottom: 1.4rem;
+      padding-left: 0.85rem;
+      border-left: 4px solid #ff6bb5;
+      color: #fff;
+    }
+
+    /* 概要グリッド */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .info-box {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 14px;
+      padding: 1.3rem 1.4rem;
+    }
+
+    .info-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #5bc4f4;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }
+
+    .info-value {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: #f0f2f8;
+      margin-bottom: 0.25rem;
+    }
+
+    .info-desc {
+      font-size: 0.86rem;
+      color: #9ba1b0;
+    }
+
+    /* 見どころ（eスポーツ観戦ポイント） */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .highlight-card {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .highlight-num {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #ff8c24;
+      background: rgba(255, 140, 36, 0.14);
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+      margin-bottom: 0.7rem;
+    }
+
+    .highlight-card h3 {
+      font-size: 1.12rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-card p {
+      font-size: 0.92rem;
+      color: #c5cbd9;
+    }
+
+    /* タブボックス（進行・レギュレーション） */
+    .panel-container {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.8rem;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #2c3149;
+      padding-bottom: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .tab-btn {
+      background: #0f111a;
+      color: #9ba1b0;
+      border: 1px solid #2c3149;
+      padding: 0.6rem 1.3rem;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: #f0f2f8;
+      border-color: #4b5278;
+    }
+
+    .tab-btn.active {
+      background: #ff6bb5;
+      color: #0f111a;
+      border-color: #ff6bb5;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .timeline-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .timeline-item {
+      background: #0f111a;
+      border: 1px solid #2c3149;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem 1.2rem;
+    }
+
+    .timeline-phase {
+      font-weight: 800;
+      color: #5bc4f4;
+      font-size: 0.95rem;
+    }
+
+    .timeline-detail {
+      color: #d0d5e2;
+      font-size: 0.92rem;
+    }
+
+    .rule-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      color: #d0d5e2;
+      font-size: 0.94rem;
+    }
+
+    .rule-list li {
+      background: #0f111a;
+      border: 1px solid #2c3149;
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+    }
+
+    /* 戻るボタン */
+    .back-area {
+      text-align: center;
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #232842;
+      border: 1px solid #454d70;
+      color: #fff;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+    }
+
+    .btn-back:hover {
+      border-color: #5bc4f4;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 2.2rem 1rem;
+      border-top: 1px solid #2c3149;
+      color: #9ba1b0;
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #d0d5e2;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: #5bc4f4;
+    }
+
+    @media (max-width: 700px) {
+      .hero-visuals {
+        grid-template-columns: 1fr;
+      }
+      .logo {
+        font-size: 1.2rem;
+      }
+      .logo .sub-tagline {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="images.icon.jpg" alt="いぬーる アイコン" class="header-icon">
+        <span>いぬーる</span>
+        <span class="sub-tagline">～ラジオのようなゲーム配信～</span>
+      </a>
+      <div class="nav-select-wrapper">
+        <select class="nav-select" aria-label="メニュー移動" onchange="if(this.value) window.location.href=this.value;">
+          <option value="">≡MENU</option>
+          <option value="index.html#live">LIVE</option>
+          <option value="index.html#videos">動画</option>
+          <option value="index.html#events">大会・企画</option>
+          <option value="index.html#profile">プロフィール</option>
+          <option value="index.html#links">LINKS</option>
+          <option value="index.html#appearances">出演等</option>
+          <option value="index.html#gallery">ギャラリー</option>
+          <option value="index.html#contact">お問い合わせ</option>
+        </select>
+        <span class="nav-select-arrow">▼</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="esports-pill">ESPORTS CUSTOM TOURNAMENT</div>
+
+      <div class="tournament-title-wrap">
+        <h1 class="inr-main-title" aria-label="INR DBD CUSTOM FEVER">
+          <span class="inr-char-ir">I</span><span class="inr-char-n">N</span><span class="inr-char-ir">R</span>
+        </h1>
+        <div class="dbd-sub-title">DBD CUSTOM FEVER</div>
+      </div>
+
+      <div class="hero-visuals">
+        <div class="hero-visual-card">
+          <img src="INR LOGO.png" alt="INR ロゴ">
+        </div>
+        <div class="hero-visual-card">
+          <img src="images.banner.png" alt="いぬーる バナー">
+        </div>
+      </div>
+
+      <p class="hero-lead">
+        Dead by Daylight のカスタムマッチを舞台に、戦術・連携・そして一瞬の判断力がぶつかり合うeスポーツイベント「<strong>INR DBD CUSTOM FEVER</strong>」。白熱のマッチ展開と実況配信で大会の熱狂をお届けします。
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://youtube.com/playlist?list=PLy__n2IwFh6kvoJ8o9FqR8b4tNwJBhBq6&si=nU3sXwqzOU8e4Wkw" target="_blank" rel="noopener noreferrer" class="btn-accent-pink">
+          ▶ 再生リスト・配信を見る
+        </a>
+        <a href="index.html#events" class="btn-outline-cyan">
+          🏆 大会・企画一覧へ
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="overview">
+      <h2 class="section-title">大会概要</h2>
+      <div class="overview-grid">
+        <div class="info-box">
+          <div class="info-label">GAME TITLE</div>
+          <div class="info-value">Dead by Daylight</div>
+          <div class="info-desc">非対称対戦カスタムマッチ形式</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">PERIOD</div>
+          <div class="info-value">Apr - Nov 2026</div>
+          <div class="info-desc">シリーズ・各ラウンド開催アーカイブ公開中</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">ROLE</div>
+          <div class="info-value">運営 / 実況</div>
+          <div class="info-desc">いぬーる（実況・進行サポート）</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">STREAM / ARCHIVE</div>
+          <div class="info-value">YouTube / Twitch</div>
+          <div class="info-desc">各マッチのハイライト・配信アーカイブ掲載</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="highlights">
+      <h2 class="section-title">eスポーツ観戦の見どころ</h2>
+      <div class="highlights-grid">
+        <div class="highlight-card">
+          <span class="highlight-num">POINT 01</span>
+          <h3>パーク構成＆オファリングの読み合い</h3>
+          <p>
+            競技性の高いカスタム環境ならではの構成選択やマップ選択が勝敗を左右。試合開始前の駆け引きから目が離せません。
+          </p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-num">POINT 02</span>
+          <h3>チェイス・発電機管理のチームワーク</h3>
+          <p>
+            サバイバー側のコール・救助判断・発電機回しと、キラー側の圧力・ターゲット切り替えが噛み合うハイレベルな攻防を展開。
+          </p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-num">POINT 03</span>
+          <h3>熱量MAXの実況＆解説</h3>
+          <p>
+            大逆転のワンシーンやギリギリの脱出劇を、テンポの良い実況とポイント解説で盛り上げ、観戦体験をより熱く演出します。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="details">
+      <h2 class="section-title">進行・レギュレーション</h2>
+      <div class="panel-container">
+        <div class="tab-buttons">
+          <button class="tab-btn active" onclick="switchDetailTab('schedule', this)">⏱️ 大会進行フロー</button>
+          <button class="tab-btn" onclick="switchDetailTab('rules', this)">📜 競技・観戦マナー</button>
+        </div>
+
+        <div id="detail-schedule" class="tab-panel active">
+          <ul class="timeline-list">
+            <li class="timeline-item">
+              <span class="timeline-phase">STEP 01｜集合・ロビー確認</span>
+              <span class="timeline-detail">出場メンバーの入室確認・カスタム設定およびレギュレーション最終チェック</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-phase">STEP 02｜マッチ開始・実況配信</span>
+              <span class="timeline-detail">各ラウンドの試合進行。注目プレーや戦況ポイントをリアルタイムで実況</span>
+            </li>
+            <li class="timeline-item">
+              <span class="timeline-phase">STEP 03｜結果集計・振り返り</span>
+              <span class="timeline-detail">ラウンド結果の反映と好プレー振り返り。アーカイブはYouTube再生リストへ順次集約</span>
+            </li>
+          </ul>
+        </div>
+
+        <div id="detail-rules" class="tab-panel">
+          <ul class="rule-list">
+            <li>・<strong>フェアプレーの徹底：</strong>全参加者が気持ちよく競技に臨めるよう、スポーツマンシップと運営指示を遵守してください。</li>
+            <li>・<strong>チャット・SNSマナー：</strong>出場プレイヤーやチームへの誹謗中傷、過度な批判コメントはお控えください。</li>
+            <li>・<strong>ネタバレ・鳩行為の禁止：</strong>配信中の他枠情報や進行に関わるネタバレコメントは控えてお楽しみください。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="back-area">
+      <a href="index.html#events" class="btn-back">← 大会・企画情報へ戻る</a>
+      <a href="index.html" class="btn-back">🏠 トップページへ戻る</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="sitemap.html">サイトマップ</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+    </div>
+    <div>&copy; 2026 INU-RU ALL RIGHTS RESERVED.</div>
+  </footer>
+
+  <script>
+    function switchDetailTab(tabName, btn) {
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(button => {
+        button.classList.remove('active');
+      });
+      document.getElementById('detail-' + tabName).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
