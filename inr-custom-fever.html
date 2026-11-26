@@ -27,15 +27,20 @@
       text-decoration: none;
     }
 
-    /* 初回アクセス用トランジション */
+    /* 初回アクセス用トランジション（PC・スマホ対応） */
     #fever-transition {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       z-index: 9999;
       background-color: #0f111a;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
       opacity: 1;
       visibility: visible;
       transition: opacity 0.45s ease, visibility 0.45s ease;
@@ -54,8 +59,17 @@
     #fever-transition-video {
       width: 100%;
       height: 100%;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    /* スマホ・縦長画面では映像が見切れないようにフィットさせる */
+    @media (max-width: 768px), (orientation: portrait) {
+      #fever-transition-video {
+        object-fit: contain;
+      }
     }
 
     /* 共通ヘッダー */
@@ -554,7 +568,7 @@
 
   <!-- ページを開いたとき1度だけ再生されるトランジション -->
   <div id="fever-transition" aria-hidden="true">
-    <video id="fever-transition-video" autoplay muted playsinline preload="auto">
+    <video id="fever-transition-video" autoplay muted playsinline webkit-playsinline preload="auto">
       <source src="INR.transition.fever.webm" type="video/webm">
     </video>
   </div>
@@ -788,7 +802,6 @@
           }
 
           if (videoId) {
-            // 再生リストではなく最初の動画単体として埋め込み
             player.src = 'https://www.youtube.com/embed/' + videoId;
             titleEl.textContent = firstItem.title || '';
             return;
