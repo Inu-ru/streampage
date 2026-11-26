@@ -27,6 +27,37 @@
       text-decoration: none;
     }
 
+    /* 初回アクセス用トランジション */
+    #fever-transition {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-color: #0f111a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.45s ease, visibility 0.45s ease;
+    }
+
+    #fever-transition.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #fever-transition.is-skipped {
+      display: none;
+    }
+
+    #fever-transition-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     /* 共通ヘッダー */
     header {
       background: rgba(15, 17, 26, 0.95);
@@ -113,7 +144,7 @@
 
     /* ヒーローセクション */
     .hero {
-      padding: 4rem 1.5rem 3.5rem;
+      padding: 3.5rem 1.5rem 3.5rem;
       background:
         radial-gradient(circle at 20% 15%, rgba(91, 196, 244, 0.16) 0%, transparent 45%),
         radial-gradient(circle at 80% 20%, rgba(255, 107, 181, 0.15) 0%, transparent 45%),
@@ -125,49 +156,6 @@
       max-width: 1040px;
       margin: 0 auto;
       text-align: center;
-    }
-
-    .esports-pill {
-      display: inline-block;
-      background: rgba(255, 140, 36, 0.14);
-      border: 1px solid rgba(255, 140, 36, 0.5);
-      color: #ff9d42;
-      font-size: 0.82rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      padding: 0.3rem 1rem;
-      border-radius: 50px;
-      margin-bottom: 1.2rem;
-    }
-
-    /* タイトルロゴ：INR（I,R=#5BC4F4 / N=オレンジ）+ DBD CUSTOM FEVER（小さめ・ピンク） */
-    .tournament-title-wrap {
-      margin-bottom: 2.2rem;
-    }
-
-    .inr-main-title {
-      font-size: clamp(3.6rem, 11vw, 6.2rem);
-      font-weight: 900;
-      line-height: 1.02;
-      letter-spacing: 0.06em;
-      text-shadow: 0 6px 28px rgba(0, 0, 0, 0.55);
-    }
-
-    .inr-char-ir {
-      color: #5bc4f4;
-    }
-
-    .inr-char-n {
-      color: #ff8c24;
-    }
-
-    .dbd-sub-title {
-      margin-top: 0.45rem;
-      font-size: clamp(1.05rem, 3vw, 1.55rem);
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      color: #ff6bb5;
-      text-shadow: 0 0 18px rgba(255, 107, 181, 0.35);
     }
 
     /* ヒーロー画像並び（INR LOGO.png & images.banner.png） */
@@ -207,10 +195,11 @@
     }
 
     .hero-lead {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto 2rem;
-      color: #d0d5e2;
+      color: #e2e6f0;
       font-size: 1rem;
+      line-height: 1.85;
     }
 
     .hero-actions {
@@ -278,6 +267,58 @@
       color: #fff;
     }
 
+    /* 最新のカスタム企画動画埋め込み */
+    .featured-video-card {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.6rem;
+    }
+
+    .featured-video-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .featured-badge {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #ff8c24;
+      background: rgba(255, 140, 36, 0.14);
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+    }
+
+    .featured-video-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #f0f2f8;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #000;
+      border: 1px solid #2c3149;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     /* 概要グリッド */
     .overview-grid {
       display: grid;
@@ -312,7 +353,7 @@
       color: #9ba1b0;
     }
 
-    /* 見どころ（eスポーツ観戦ポイント） */
+    /* 見どころ */
     .highlights-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -338,7 +379,7 @@
     }
 
     .highlight-card h3 {
-      font-size: 1.12rem;
+      font-size: 1.1rem;
       color: #fff;
       margin-bottom: 0.5rem;
     }
@@ -348,7 +389,7 @@
       color: #c5cbd9;
     }
 
-    /* タブボックス（進行・レギュレーション） */
+    /* タブボックス（開催情報・ルール） */
     .panel-container {
       background: #1a1d2d;
       border: 1px solid #2c3149;
@@ -396,50 +437,52 @@
       display: block;
     }
 
-    .timeline-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-
-    .timeline-item {
+    .upcoming-box {
       background: #0f111a;
       border: 1px solid #2c3149;
       border-radius: 12px;
-      padding: 1rem 1.25rem;
+      padding: 1.4rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.6rem 1.2rem;
+      gap: 1rem;
     }
 
-    .timeline-phase {
+    .upcoming-label {
+      font-size: 0.82rem;
       font-weight: 800;
       color: #5bc4f4;
-      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
     }
 
-    .timeline-detail {
-      color: #d0d5e2;
-      font-size: 0.92rem;
+    .upcoming-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #f0f2f8;
     }
 
-    .rule-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      color: #d0d5e2;
-      font-size: 0.94rem;
+    .btn-prep-disabled {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 255, 255, 0.06);
+      color: #9ba1b0;
+      border: 1px solid #3e4566;
+      padding: 0.65rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: not-allowed;
     }
 
-    .rule-list li {
+    .rule-box {
       background: #0f111a;
       border: 1px solid #2c3149;
-      border-radius: 10px;
-      padding: 0.85rem 1.1rem;
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      color: #e2e6f0;
+      font-size: 0.96rem;
     }
 
     /* 戻るボタン */
@@ -509,6 +552,13 @@
 </head>
 <body>
 
+  <!-- ページを開いたとき1度だけ再生されるトランジション -->
+  <div id="fever-transition" aria-hidden="true">
+    <video id="fever-transition-video" autoplay muted playsinline preload="auto">
+      <source src="INR.transition.fever.webm" type="video/webm">
+    </video>
+  </div>
+
   <header>
     <div class="nav-container">
       <a href="index.html" class="logo">
@@ -535,15 +585,6 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <div class="esports-pill">ESPORTS CUSTOM TOURNAMENT</div>
-
-      <div class="tournament-title-wrap">
-        <h1 class="inr-main-title" aria-label="INR DBD CUSTOM FEVER">
-          <span class="inr-char-ir">I</span><span class="inr-char-n">N</span><span class="inr-char-ir">R</span>
-        </h1>
-        <div class="dbd-sub-title">DBD CUSTOM FEVER</div>
-      </div>
-
       <div class="hero-visuals">
         <div class="hero-visual-card">
           <img src="INR LOGO.png" alt="INR ロゴ">
@@ -554,105 +595,118 @@
       </div>
 
       <p class="hero-lead">
-        Dead by Daylight のカスタムマッチを舞台に、戦術・連携・そして一瞬の判断力がぶつかり合うeスポーツイベント「<strong>INR DBD CUSTOM FEVER</strong>」。白熱のマッチ展開と実況配信で大会の熱狂をお届けします。
+        誰もが参加できる、大会ほど競技性はないが、ゲームを最大限エンジョイしたい、実況・解説付きで大会のような気分を味わいたい。<br>
+        そんなPeopleにぴったりのDead by Daylightカスタム企画「INR DBD CUSTOM FEVER」
       </p>
 
       <div class="hero-actions">
         <a href="https://youtube.com/playlist?list=PLy__n2IwFh6kvoJ8o9FqR8b4tNwJBhBq6&si=nU3sXwqzOU8e4Wkw" target="_blank" rel="noopener noreferrer" class="btn-accent-pink">
-          ▶ 再生リスト・配信を見る
+          ▶ 配信再生リストを見る
         </a>
-        <a href="index.html#events" class="btn-outline-cyan">
-          🏆 大会・企画一覧へ
+        <a href="https://youtube.com/playlist?list=PLYdhAXf08IF0&si=sMlHS-1mOHtLWdbd" target="_blank" rel="noopener noreferrer" class="btn-outline-cyan">
+          ✨ ハイライトを見る
         </a>
       </div>
     </div>
   </section>
 
   <main>
+    <section id="latest-custom">
+      <h2 class="section-title">最新のカスタム企画</h2>
+      <div class="featured-video-card">
+        <div class="featured-video-header">
+          <span class="featured-badge">🎬 配信再生リスト 最初の動画</span>
+          <span id="first-playlist-video-title" class="featured-video-title">読み込み中...</span>
+        </div>
+        <div class="video-wrapper">
+          <iframe
+            id="first-playlist-video-player"
+            src="https://www.youtube.com/embed?listType=playlist&list=PLy__n2IwFh6kvoJ8o9FqR8b4tNwJBhBq6&index=1"
+            title="INR DBD CUSTOM FEVER 配信再生リスト 最初の動画"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
     <section id="overview">
       <h2 class="section-title">大会概要</h2>
       <div class="overview-grid">
         <div class="info-box">
           <div class="info-label">GAME TITLE</div>
           <div class="info-value">Dead by Daylight</div>
-          <div class="info-desc">非対称対戦カスタムマッチ形式</div>
+          <div class="info-desc">非対称対戦ホラーゲーム</div>
         </div>
         <div class="info-box">
           <div class="info-label">PERIOD</div>
-          <div class="info-value">Apr - Nov 2026</div>
-          <div class="info-desc">シリーズ・各ラウンド開催アーカイブ公開中</div>
+          <div class="info-value">通年</div>
+          <div class="info-desc">キラー限定カスタム・オープンカスタム開催</div>
         </div>
         <div class="info-box">
           <div class="info-label">ROLE</div>
-          <div class="info-value">運営 / 実況</div>
-          <div class="info-desc">いぬーる（実況・進行サポート）</div>
+          <div class="info-value">実況 いぬーる</div>
+          <div class="info-desc">解説 ゲスト（キラースペシャリスト）</div>
         </div>
         <div class="info-box">
-          <div class="info-label">STREAM / ARCHIVE</div>
-          <div class="info-value">YouTube / Twitch</div>
+          <div class="info-label">STREAM</div>
+          <div class="info-value">YouTube</div>
           <div class="info-desc">各マッチのハイライト・配信アーカイブ掲載</div>
         </div>
       </div>
     </section>
 
     <section id="highlights">
-      <h2 class="section-title">eスポーツ観戦の見どころ</h2>
+      <h2 class="section-title">INR Customの見どころ</h2>
       <div class="highlights-grid">
         <div class="highlight-card">
-          <span class="highlight-num">POINT 01</span>
-          <h3>パーク構成＆オファリングの読み合い</h3>
+          <span class="highlight-num">POINT 1</span>
+          <h3>公開マッチに近い形のカスタム</h3>
           <p>
-            競技性の高いカスタム環境ならではの構成選択やマップ選択が勝敗を左右。試合開始前の駆け引きから目が離せません。
+            パーク・アドオン制限がなく、キラーを主役とした企画。
           </p>
         </div>
         <div class="highlight-card">
-          <span class="highlight-num">POINT 02</span>
-          <h3>チェイス・発電機管理のチームワーク</h3>
+          <span class="highlight-num">POINT 2</span>
+          <h3>キラー事前応募、サバイバー参加型</h3>
           <p>
-            サバイバー側のコール・救助判断・発電機回しと、キラー側の圧力・ターゲット切り替えが噛み合うハイレベルな攻防を展開。
+            サバイバーは当日の参加型というスタイルのため、チームでの練習や連携の事前確認がない。
           </p>
         </div>
         <div class="highlight-card">
-          <span class="highlight-num">POINT 03</span>
+          <span class="highlight-num">POINT 3</span>
           <h3>熱量MAXの実況＆解説</h3>
           <p>
-            大逆転のワンシーンやギリギリの脱出劇を、テンポの良い実況とポイント解説で盛り上げ、観戦体験をより熱く演出します。
+            いぬーるの臨場感の伝わるテンポの良い実況とキラースペシャリストによるポイント解説で盛り上げ、観戦体験をより熱く演出します。
           </p>
         </div>
       </div>
     </section>
 
     <section id="details">
-      <h2 class="section-title">進行・レギュレーション</h2>
+      <h2 class="section-title">開催情報</h2>
       <div class="panel-container">
         <div class="tab-buttons">
-          <button class="tab-btn active" onclick="switchDetailTab('schedule', this)">⏱️ 大会進行フロー</button>
-          <button class="tab-btn" onclick="switchDetailTab('rules', this)">📜 競技・観戦マナー</button>
+          <button class="tab-btn active" onclick="switchDetailTab('schedule', this)">📣 募集中</button>
+          <button class="tab-btn" onclick="switchDetailTab('rules', this)">📜 ルール</button>
         </div>
 
         <div id="detail-schedule" class="tab-panel active">
-          <ul class="timeline-list">
-            <li class="timeline-item">
-              <span class="timeline-phase">STEP 01｜集合・ロビー確認</span>
-              <span class="timeline-detail">出場メンバーの入室確認・カスタム設定およびレギュレーション最終チェック</span>
-            </li>
-            <li class="timeline-item">
-              <span class="timeline-phase">STEP 02｜マッチ開始・実況配信</span>
-              <span class="timeline-detail">各ラウンドの試合進行。注目プレーや戦況ポイントをリアルタイムで実況</span>
-            </li>
-            <li class="timeline-item">
-              <span class="timeline-phase">STEP 03｜結果集計・振り返り</span>
-              <span class="timeline-detail">ラウンド結果の反映と好プレー振り返り。アーカイブはYouTube再生リストへ順次集約</span>
-            </li>
-          </ul>
+          <div class="upcoming-box">
+            <div>
+              <div class="upcoming-label">次回開催情報</div>
+              <div class="upcoming-title">2026/12/18 INR CUSTOM FEVER D.C. al FINE</div>
+            </div>
+            <button type="button" class="btn-prep-disabled" disabled>
+              詳細はこちら（準備中）
+            </button>
+          </div>
         </div>
 
         <div id="detail-rules" class="tab-panel">
-          <ul class="rule-list">
-            <li>・<strong>フェアプレーの徹底：</strong>全参加者が気持ちよく競技に臨めるよう、スポーツマンシップと運営指示を遵守してください。</li>
-            <li>・<strong>チャット・SNSマナー：</strong>出場プレイヤーやチームへの誹謗中傷、過度な批判コメントはお控えください。</li>
-            <li>・<strong>ネタバレ・鳩行為の禁止：</strong>配信中の他枠情報や進行に関わるネタバレコメントは控えてお楽しみください。</li>
-          </ul>
+          <div class="rule-box">
+            道徳に反することは禁止
+          </div>
         </div>
       </div>
     </section>
@@ -672,6 +726,80 @@
   </footer>
 
   <script>
+    const FEVER_TRANSITION_KEY = 'inr_fever_transition_played';
+    const FEVER_PLAYLIST_ID = 'PLy__n2IwFh6kvoJ8o9FqR8b4tNwJBhBq6';
+
+    // ページを開いたとき1度だけトランジション動画を再生
+    (function initFeverTransition() {
+      const overlay = document.getElementById('fever-transition');
+      const video = document.getElementById('fever-transition-video');
+      if (!overlay || !video) return;
+
+      if (sessionStorage.getItem(FEVER_TRANSITION_KEY) === '1') {
+        overlay.classList.add('is-skipped');
+        return;
+      }
+
+      sessionStorage.setItem(FEVER_TRANSITION_KEY, '1');
+      let finished = false;
+
+      const finishTransition = () => {
+        if (finished) return;
+        finished = true;
+        overlay.classList.add('is-hidden');
+        setTimeout(() => {
+          overlay.classList.add('is-skipped');
+        }, 500);
+      };
+
+      video.addEventListener('ended', finishTransition, { once: true });
+      video.addEventListener('error', finishTransition, { once: true });
+
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          finishTransition();
+        });
+      }
+
+      setTimeout(finishTransition, 8000);
+    })();
+
+    // 配信再生リストの最初の動画単体を取得して埋め込み
+    (async function initFirstPlaylistVideo() {
+      const player = document.getElementById('first-playlist-video-player');
+      const titleEl = document.getElementById('first-playlist-video-title');
+      if (!player || !titleEl) return;
+
+      const rssUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + FEVER_PLAYLIST_ID;
+      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+
+      try {
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+        if (data.status === 'ok' && data.items && data.items.length > 0) {
+          const firstItem = data.items[0];
+          let videoId = '';
+
+          if (firstItem.guid && firstItem.guid.includes('yt:video:')) {
+            videoId = firstItem.guid.split('yt:video:')[1];
+          } else if (firstItem.link && firstItem.link.includes('v=')) {
+            videoId = firstItem.link.split('v=')[1].split('&')[0];
+          }
+
+          if (videoId) {
+            // 再生リストではなく最初の動画単体として埋め込み
+            player.src = 'https://www.youtube.com/embed/' + videoId;
+            titleEl.textContent = firstItem.title || '';
+            return;
+          }
+        }
+        titleEl.textContent = 'INR DBD CUSTOM FEVER';
+      } catch (e) {
+        titleEl.textContent = 'INR DBD CUSTOM FEVER';
+      }
+    })();
+
     function switchDetailTab(tabName, btn) {
       document.querySelectorAll('.tab-panel').forEach(panel => {
         panel.classList.remove('active');
