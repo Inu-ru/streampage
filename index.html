@@ -378,6 +378,61 @@
       cursor: pointer;
     }
 
+    .upcoming-live-box {
+      margin-top: 1.2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid #2c3149;
+    }
+
+    .upcoming-live-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .upcoming-live-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #5bc4f4;
+    }
+
+    .upcoming-live-desc {
+      font-size: 0.92rem;
+      color: #e2e6f0;
+      font-weight: 600;
+    }
+
+    .upcoming-empty-box {
+      background: #0f111a;
+      border: 1px dashed #3e4566;
+      border-radius: 12px;
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .upcoming-empty-box.hidden-box {
+      display: none;
+    }
+
+    .upcoming-empty-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #9ba1b0;
+    }
+
+    .upcoming-empty-sub {
+      font-size: 0.84rem;
+      color: #7c8396;
+      margin-top: 0.2rem;
+    }
+
     /* 動画セクション */
     .latest-video-box {
       background: #1a1d2d;
@@ -1055,6 +1110,48 @@
             <button class="btn-small" onclick="loadVideo()">プレイヤーに読込</button>
           </div>
         </div>
+
+        <!-- LIVEセクション一番下：配信予定・配信中ステータス＆埋め込み -->
+        <div id="upcoming-live-box" class="upcoming-live-box">
+          <!-- リンク設定時 -->
+          <div id="upcoming-active-area">
+            <div class="upcoming-live-header">
+              <div>
+                <div class="upcoming-live-label">🗓️ 配信予定（待機所）</div>
+                <div id="upcoming-live-desc" class="upcoming-live-desc"></div>
+              </div>
+              <a id="upcoming-live-link"
+                 href="https://www.youtube.com/live/EfGZM-JEcp8?si=5U1FGm26rRi2WBXi"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="btn-schedule-link"
+                 style="padding: 0.55rem 1.2rem; font-size: 0.88rem;">
+                YouTubeで配信予定を開く →
+              </a>
+            </div>
+
+            <div id="upcoming-embed-wrap" class="video-wrapper">
+              <iframe
+                id="upcoming-yt-player"
+                src=""
+                title="いぬーる 配信予定プレイヤー"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+
+          <!-- リンク未設定時 -->
+          <div id="upcoming-empty-area" class="upcoming-empty-box hidden-box">
+            <div>
+              <div class="upcoming-empty-title">⏸️ 現在、配信中・配信予定の枠はありません</div>
+              <div class="upcoming-empty-sub">次回の配信予定は「今週・今月の予定」またはX（@inu_ru）でお知らせします。</div>
+            </div>
+            <a href="schedule.html" class="btn-schedule-link" style="padding: 0.55rem 1.2rem; font-size: 0.88rem;">
+              📅 予定表を見る →
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1384,6 +1481,57 @@
     const YOUTUBE_CHANNEL_ID = 'UC0cgRgovA84hfh-P7G-sSKw';
     const TRANSITION_STORAGE_KEY = 'inuru_intro_transition_played';
 
+    // 毎回ここへ配信予定（待機所）のURLを貼る
+    // 空文字 '' にすると「現在、配信中・配信予定の枠はありません」と表示されます
+    const MANUAL_UPCOMING_STREAM_URL = 'https://www.youtube.com/live/EfGZM-JEcp8?si=5U1FGm26rRi2WBXi';
+
+    function extractYouTubeVideoId(urlOrId) {
+      if (!urlOrId) return '';
+      const trimmed = urlOrId.trim();
+      try {
+        if (trimmed.includes('youtu.be/')) {
+          return trimmed.split('youtu.be/')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.includes('v=')) {
+          return trimmed.split('v=')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.includes('/live/')) {
+          return trimmed.split('/live/')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.length === 11) {
+          return trimmed;
+        }
+      } catch (e) {
+        return '';
+      }
+      return '';
+    }
+
+    // LIVEセクション一番下：配信予定・配信中ステータス表示の初期化
+    (function initManualUpcomingStream() {
+      const activeArea = document.getElementById('upcoming-active-area');
+      const emptyArea = document.getElementById('upcoming-empty-area');
+      const linkEl = document.getElementById('upcoming-live-link');
+      const descEl = document.getElementById('upcoming-live-desc');
+      const iframeEl = document.getElementById('upcoming-yt-player');
+      if (!activeArea || !emptyArea || !linkEl || !descEl || !iframeEl) return;
+
+      const videoId = extractYouTubeVideoId(MANUAL_UPCOMING_STREAM_URL);
+      if (!videoId) {
+        activeArea.style.display = 'none';
+        iframeEl.src = '';
+        emptyArea.classList.remove('hidden-box');
+        return;
+      }
+
+      emptyArea.classList.add('hidden-box');
+      activeArea.style.display = 'block';
+      linkEl.href = MANUAL_UPCOMING_STREAM_URL;
+      linkEl.textContent = 'YouTubeで配信予定を開く →';
+      descEl.textContent = '【DBD 参加型】配信2周年記念カスタム企画！VSいぬーる（配信開始後、下のプレイヤーからそのまま視聴できます）';
+      iframeEl.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&mute=1';
+    })();
+
     // 初回アクセス時のみトランジション動画を再生
     (function initIntroTransition() {
       const overlay = document.getElementById('intro-transition');
@@ -1651,22 +1799,7 @@
       const input = document.getElementById('video-url-input').value.trim();
       if (!input) return;
 
-      let videoId = '';
-      try {
-        if (input.includes('youtu.be/')) {
-          videoId = input.split('youtu.be/')[1].split(/[?&#]/)[0];
-        } else if (input.includes('v=')) {
-          videoId = input.split('v=')[1].split(/[?&#]/)[0];
-        } else if (input.includes('/live/')) {
-          videoId = input.split('/live/')[1].split(/[?&#]/)[0];
-        } else if (input.length === 11) {
-          videoId = input;
-        }
-      } catch (e) {
-        alert('URLの形式を確認してください。');
-        return;
-      }
-
+      const videoId = extractYouTubeVideoId(input);
       if (videoId) {
         document.getElementById('yt-player').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
         document.getElementById('video-box').classList.remove('hidden-box');
