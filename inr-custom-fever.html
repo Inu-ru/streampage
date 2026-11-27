@@ -209,11 +209,16 @@
     }
 
     .hero-lead {
-      max-width: 720px;
+      max-width: 740px;
       margin: 0 auto 2rem;
       color: #e2e6f0;
       font-size: 1rem;
-      line-height: 1.85;
+      line-height: 1.9;
+    }
+
+    .inuru-highlight {
+      color: #5bc4f4;
+      font-weight: 800;
     }
 
     .hero-actions {
@@ -333,38 +338,89 @@
       border: 0;
     }
 
-    /* 概要グリッド */
-    .overview-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.1rem;
-    }
-
-    .info-box {
+    /* 年間ROADMAP */
+    .roadmap-card {
       background: #1a1d2d;
       border: 1px solid #2c3149;
-      border-radius: 14px;
-      padding: 1.3rem 1.4rem;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
     }
 
-    .info-label {
-      font-size: 0.8rem;
-      font-weight: 700;
+    .roadmap-img {
+      width: 100%;
+      max-width: 960px;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #2c3149;
+    }
+
+    /* 企画概要（表形式・3列） */
+    .overview-table-wrap {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.4rem;
+      overflow-x: auto;
+    }
+
+    .overview-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 580px;
+    }
+
+    .overview-table th,
+    .overview-table td {
+      padding: 1rem 1.15rem;
+      text-align: left;
+      border-bottom: 1px solid #2c3149;
+      font-size: 0.95rem;
+      vertical-align: middle;
+    }
+
+    .overview-table thead th {
+      background: #0f111a;
       color: #5bc4f4;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.35rem;
-    }
-
-    .info-value {
-      font-size: 1.12rem;
       font-weight: 800;
-      color: #f0f2f8;
-      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      border-top: 1px solid #2c3149;
     }
 
-    .info-desc {
+    .overview-table thead th:first-child {
+      border-top-left-radius: 10px;
+    }
+
+    .overview-table thead th:last-child {
+      border-top-right-radius: 10px;
+    }
+
+    .overview-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .overview-table tbody tr:hover {
+      background: rgba(91, 196, 244, 0.05);
+    }
+
+    .series-name-cell {
+      font-weight: 800;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .entry-badge {
+      display: inline-block;
+      background: rgba(255, 107, 181, 0.15);
+      color: #ff6bb5;
+      border: 1px solid rgba(255, 107, 181, 0.35);
+      padding: 0.25rem 0.75rem;
+      border-radius: 8px;
       font-size: 0.86rem;
-      color: #9ba1b0;
+      font-weight: 700;
     }
 
     /* 見どころ */
@@ -591,6 +647,7 @@
           <option value="index.html#appearances">出演等</option>
           <option value="index.html#gallery">ギャラリー</option>
           <option value="index.html#contact">お問い合わせ</option>
+          <option value="credit.html">クレジット</option>
         </select>
         <span class="nav-select-arrow">▼</span>
       </div>
@@ -609,8 +666,10 @@
       </div>
 
       <p class="hero-lead">
+        <strong class="inuru-highlight">INR DBD CUSTOM FEVERとは</strong><br>
         誰もが参加できる、大会ほど競技性はないが、ゲームを最大限エンジョイしたい、実況・解説付きで大会のような気分を味わいたい。<br>
-        そんなPeopleにぴったりのDead by Daylightカスタム企画「INR DBD CUSTOM FEVER」
+        そんなPeopleにぴったりの<br>
+        <strong class="inuru-highlight">Dead by Daylightカスタム企画</strong>
       </p>
 
       <div class="hero-actions">
@@ -644,29 +703,47 @@
       </div>
     </section>
 
+    <section id="roadmap">
+      <h2 class="section-title">年間ROADMAP</h2>
+      <div class="roadmap-card">
+        <img src="INR.annual.map.png" alt="INR DBD CUSTOM FEVER 年間ROADMAP" class="roadmap-img">
+      </div>
+    </section>
+
     <section id="overview">
-      <h2 class="section-title">大会概要</h2>
-      <div class="overview-grid">
-        <div class="info-box">
-          <div class="info-label">GAME TITLE</div>
-          <div class="info-value">Dead by Daylight</div>
-          <div class="info-desc">非対称対戦ホラーゲーム</div>
-        </div>
-        <div class="info-box">
-          <div class="info-label">PERIOD</div>
-          <div class="info-value">通年</div>
-          <div class="info-desc">キラー限定カスタム・オープンカスタム開催</div>
-        </div>
-        <div class="info-box">
-          <div class="info-label">ROLE</div>
-          <div class="info-value">実況 いぬーる</div>
-          <div class="info-desc">解説 ゲスト（キラースペシャリスト）</div>
-        </div>
-        <div class="info-box">
-          <div class="info-label">STREAM</div>
-          <div class="info-value">YouTube</div>
-          <div class="info-desc">各マッチのハイライト・配信アーカイブ掲載</div>
-        </div>
+      <h2 class="section-title">企画概要</h2>
+      <div class="overview-table-wrap">
+        <table class="overview-table">
+          <thead>
+            <tr>
+              <th>企画名</th>
+              <th>コンセプト</th>
+              <th>参加方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="series-name-cell">ACTシリーズ</td>
+              <td>キラー自由のオープンカスタム</td>
+              <td><span class="entry-badge">キラー事前募集</span></td>
+            </tr>
+            <tr>
+              <td class="series-name-cell">EDITIONシリーズ</td>
+              <td>キラー限定・縛りありのカスタム</td>
+              <td><span class="entry-badge">キラー事前募集</span></td>
+            </tr>
+            <tr>
+              <td class="series-name-cell">1 on 1シリーズ</td>
+              <td>1V1によるタイムアタック</td>
+              <td><span class="entry-badge">全参加者事前募集</span></td>
+            </tr>
+            <tr>
+              <td class="series-name-cell">Competitionシリーズ</td>
+              <td>唯一の競技性志向カスタム</td>
+              <td><span class="entry-badge">チーム単位の事前募集</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
