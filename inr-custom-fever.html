@@ -459,7 +459,7 @@
       color: #c5cbd9;
     }
 
-    /* タブボックス（開催情報・ルール） */
+    /* タブボックス（開催情報：参加者募集・解説者募集・ルール） */
     .panel-container {
       background: #1a1d2d;
       border: 1px solid #2c3149;
@@ -544,6 +544,17 @@
       font-size: 0.88rem;
       font-weight: 700;
       cursor: not-allowed;
+    }
+
+    .prep-box {
+      background: #0f111a;
+      border: 1px dashed #3e4566;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      color: #9ba1b0;
+      font-size: 0.95rem;
+      font-weight: 700;
     }
 
     .rule-box {
@@ -778,11 +789,12 @@
       <h2 class="section-title">開催情報</h2>
       <div class="panel-container">
         <div class="tab-buttons">
-          <button class="tab-btn active" onclick="switchDetailTab('schedule', this)">📣 募集中</button>
+          <button class="tab-btn active" onclick="switchDetailTab('participants', this)">📣 参加者募集</button>
+          <button class="tab-btn" onclick="switchDetailTab('commentator', this)">🎙️ 解説者募集</button>
           <button class="tab-btn" onclick="switchDetailTab('rules', this)">📜 ルール</button>
         </div>
 
-        <div id="detail-schedule" class="tab-panel active">
+        <div id="detail-participants" class="tab-panel active">
           <div class="upcoming-box">
             <div>
               <div class="upcoming-label">次回開催情報</div>
@@ -791,6 +803,12 @@
             <button type="button" class="btn-prep-disabled" disabled>
               詳細はこちら（準備中）
             </button>
+          </div>
+        </div>
+
+        <div id="detail-commentator" class="tab-panel">
+          <div class="prep-box">
+            準備中
           </div>
         </div>
 
