@@ -71,17 +71,6 @@
     /* メイン */
     main { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
     .page-header { text-align: center; margin-bottom: 2.2rem; }
-    .page-badge {
-      display: inline-block;
-      background: rgba(255, 71, 87, 0.16);
-      color: #ff6b81;
-      border: 1px solid rgba(255, 71, 87, 0.4);
-      padding: 0.25rem 0.85rem;
-      border-radius: 50px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      margin-bottom: 0.7rem;
-    }
     .page-header h1 {
       font-size: 2.1rem;
       padding-bottom: 0.6rem;
@@ -175,8 +164,16 @@
     }
     .role-killer { background: rgba(255, 71, 87, 0.18); color: #ff6b81; }
     .role-survivor { background: rgba(91, 196, 244, 0.18); color: #5bc4f4; }
-    .perk-card h3 { font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem; }
-    .perk-card p { font-size: 0.92rem; color: #c5cbd9; }
+    .perk-card h3 { font-size: 1.15rem; color: #fff; margin-bottom: 0.6rem; }
+    .perk-card p { font-size: 0.92rem; color: #c5cbd9; line-height: 1.75; }
+    .perk-sub-list {
+      list-style: none;
+      margin: 0.45rem 0 0.85rem;
+      padding-left: 0.2rem;
+      color: #c5cbd9;
+      font-size: 0.92rem;
+      line-height: 1.75;
+    }
 
     .official-cta {
       text-align: center;
@@ -262,7 +259,6 @@
 
   <main>
     <div class="page-header">
-      <div class="page-badge">GAME PROFILE</div>
       <h1>Dead by Daylight</h1>
     </div>
 
@@ -324,15 +320,18 @@
           <span class="perk-role role-killer">キラー</span>
           <h3>時間の逆行</h3>
           <p>
-            発電機を蹴った際、対象の発電機に一定時間の後退（修理進行度の減少）効果を与える遅延系パーク。試合中盤以降の索敵や巡回と組み合わせることで、戦況のペースを握りやすくしてくれます。
+            生存者をフックに吊るしたあと、次の(40・50・60)秒間、20メートル以内の目視できる発電機を選んでアビリティ発動ボタン1を押すと、その発電機が爆発して進行度が10%失われ、後退し始める。
           </p>
         </div>
         <div class="perk-card">
           <span class="perk-role role-survivor">サバイバー</span>
           <h3>加速の策略</h3>
-          <p>
-            チェイスや移動時の立ち回りをサポートし、位置取りや距離調整の幅を広げてくれるパーク。状況に応じた判断と組み合わせることで、逃走や発電機への復帰をスムーズにしやすくなります。
-          </p>
+          <p>殺人鬼に追跡されている間：</p>
+          <ul class="perk-sub-list">
+            <li>・他の生存者のオーラがあなたに視える。</li>
+            <li>・他の生存者は発電機の修理速度が(3・4・5)%上昇する。</li>
+          </ul>
+          <p>あなたがダメージを受けると、40秒間のクールダウンが発生する。</p>
         </div>
       </div>
     </div>
