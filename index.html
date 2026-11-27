@@ -581,6 +581,11 @@
     .section-action-center {
       margin-top: 1.5rem;
       text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.9rem;
     }
 
     /* プロフィール & スケジュール */
@@ -831,6 +836,55 @@
       display: block;
     }
 
+    .btn-hold-notice {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      background-color: #1a1d2d;
+      color: #ffd166;
+      border: 1px solid #ffd166;
+      padding: 0.75rem 1.4rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      touch-action: manipulation;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .btn-hold-notice.is-holding {
+      background-color: #ffd166;
+      color: #0f111a;
+    }
+
+    .gallery-notice-box {
+      display: none;
+      margin-top: 1.2rem;
+      background: #0f111a;
+      border: 1px solid #ffd166;
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      text-align: left;
+      color: #e2e6f0;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .gallery-notice-box.is-visible {
+      display: block;
+    }
+
+    .gallery-notice-title {
+      font-weight: 800;
+      color: #ffd166;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
     /* お問い合わせセンター（Googleフォーム埋め込み） */
     .contact-card {
       background: #1a1d2d;
@@ -951,6 +1005,7 @@
           <option value="index.html#appearances">出演等</option>
           <option value="index.html#gallery">ギャラリー</option>
           <option value="index.html#contact">お問い合わせ</option>
+          <option value="credit.html">クレジット</option>
         </select>
         <span class="nav-select-arrow">▼</span>
       </div>
@@ -1274,6 +1329,19 @@
 
         <div class="section-action-center">
           <a href="fanart.html" class="btn-sub-page">🎨 FAはこちら →</a>
+          <button type="button" id="hold-notice-btn" class="btn-hold-notice">
+            ⚠️ 注意事項（押している間表示）
+          </button>
+        </div>
+
+        <div id="gallery-notice-box" class="gallery-notice-box" aria-live="polite">
+          <div class="gallery-notice-title">ギャラリー注意事項</div>
+          <p>
+            本ギャラリーに掲載しているイラストの著作権は、各制作者様に帰属します。<br>
+            無断転載、無断配布、無断加工、自作発言を禁止します。<br>
+            また、掲載作品およびその画像データを、AI学習（機械学習・生成AIの学習データへの利用を含む）に使用することを禁止します。<br>
+            イラストをSNS等で紹介する場合は、制作者様のガイドラインをご確認ください。
+          </p>
         </div>
       </div>
     </section>
@@ -1356,6 +1424,34 @@
 
       // 動画が読み込めない場合の安全フォールバック（8秒）
       setTimeout(finishTransition, 8000);
+    })();
+
+    // ギャラリー注意事項（押している間だけ表示）
+    (function initHoldNotice() {
+      const btn = document.getElementById('hold-notice-btn');
+      const box = document.getElementById('gallery-notice-box');
+      if (!btn || !box) return;
+
+      const showNotice = () => {
+        btn.classList.add('is-holding');
+        box.classList.add('is-visible');
+      };
+
+      const hideNotice = () => {
+        btn.classList.remove('is-holding');
+        box.classList.remove('is-visible');
+      };
+
+      btn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        showNotice();
+      });
+
+      ['pointerup', 'pointerleave', 'pointercancel'].forEach(evt => {
+        btn.addEventListener(evt, hideNotice);
+      });
+
+      window.addEventListener('pointerup', hideNotice);
     })();
 
     // ヘッダープルダウン移動
