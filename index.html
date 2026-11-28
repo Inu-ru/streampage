@@ -112,10 +112,13 @@
       flex-shrink: 0;
     }
 
-    .logo .sub-tagline {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #9ba1b0;
+    .header-sub-img {
+      height: 30px;
+      max-width: 220px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
     }
 
     /* プルダウンナビゲーション */
@@ -1021,7 +1024,7 @@
     @media (max-width: 768px) {
       .hero h1 { font-size: 2rem; }
       .logo { font-size: 1.2rem; }
-      .logo .sub-tagline { font-size: 0.8rem; }
+      .header-sub-img { height: 24px; max-width: 170px; }
       .nav-select { font-size: 0.85rem; padding: 0.45rem 2rem 0.45rem 0.85rem; }
       .event-item a,
       .event-item .event-card-disabled { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
@@ -1043,7 +1046,7 @@
       <a href="index.html" class="logo">
         <img src="images.icon.jpg" alt="いぬーる アイコン" class="header-icon">
         <span>いぬーる</span>
-        <span class="sub-tagline">～ラジオのようなゲーム配信～</span>
+        <img src="image.Head.png" alt="いぬーる ヘッダー画像" class="header-sub-img">
       </a>
       <div class="nav-select-wrapper">
         <select id="section-jump" class="nav-select" aria-label="メニュー移動" onchange="jumpToSection(this)">
@@ -1828,3 +1831,4 @@
   </script>
 </body>
 </html>
+```[cite: 1]
