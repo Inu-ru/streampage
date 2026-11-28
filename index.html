@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>いぬーる ～ラジオのようなゲーム配信～</title>
+  <title>プロフィール詳細 | いぬーる ～ラジオのようなゲーム配信～</title>
   <style>
     * {
       box-sizing: border-box;
@@ -25,51 +25,6 @@
     a {
       color: inherit;
       text-decoration: none;
-    }
-
-    /* 初回アクセス用トランジション（PC・スマホ対応） */
-    #intro-transition {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      z-index: 9999;
-      background-color: #0f111a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.45s ease, visibility 0.45s ease;
-    }
-
-    #intro-transition.is-hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    #intro-transition.is-skipped {
-      display: none;
-    }
-
-    #intro-video {
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* スマホ・縦長画面では映像が見切れないようにフィットさせる */
-    @media (max-width: 768px), (orientation: portrait) {
-      #intro-video {
-        object-fit: contain;
-      }
     }
 
     /* ヘッダー */
@@ -161,54 +116,219 @@
       color: #ff4757;
     }
 
-    /* ヒーローセクション */
-    .hero {
+    /* ページヘッダー */
+    .page-hero {
       text-align: center;
-      padding: 4.5rem 1.5rem 4rem;
-      background: radial-gradient(circle at top, #1f243d 0%, #0f111a 70%);
+      padding: 3.5rem 1.5rem 2.5rem;
+      background: radial-gradient(circle at top, #1f243d 0%, #0f111a 72%);
     }
 
-    .avatar {
-      max-width: 240px;
-      max-height: 240px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      margin: 0 auto 1.5rem;
-      display: block;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
+    .page-hero h1 {
+      font-size: 2.2rem;
       margin-bottom: 0.5rem;
     }
 
-    .hero p {
+    .page-hero p {
       color: #9ba1b0;
-      max-width: 600px;
-      margin: 0 auto 2rem;
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 0.95rem;
     }
 
-    .btn-primary {
-      display: inline-flex;
+    /* メインコンテンツ */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 80px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.4rem;
+      padding-left: 0.8rem;
+      border-left: 4px solid #ff4757;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.8rem;
+    }
+
+    .card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .creator-badge {
+      display: inline-block;
+      background: rgba(255, 193, 7, 0.15);
+      color: #ffd166;
+      border: 1px solid rgba(255, 193, 7, 0.35);
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.9rem;
+    }
+
+    .profile-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .profile-list li {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.8rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid #2c3149;
+    }
+
+    .profile-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .profile-label {
+      color: #9ba1b0;
+      font-weight: 700;
+      min-width: 110px;
+    }
+
+    .profile-value {
+      color: #f0f2f8;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .bio-text {
+      color: #d0d5e2;
+      font-size: 0.95rem;
+      line-height: 1.85;
+    }
+
+    .bio-text + .bio-text {
+      margin-top: 0.9rem;
+    }
+
+    /* レーダーチャート */
+    .radar-wrapper {
+      text-align: center;
+    }
+
+    .radar-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f0f2f8;
+      margin-bottom: 0.6rem;
+    }
+
+    .radar-svg {
+      width: 100%;
+      max-width: 350px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* 円グラフ */
+    .pie-content {
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
-      background-color: #ff4757;
-      color: #fff;
-      padding: 0.9rem 2rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1.05rem;
-      box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.2s;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      padding: 0.6rem 0;
     }
 
-    .btn-primary:hover {
-      background-color: #ff6b81;
-      transform: translateY(-1px);
+    .pie-svg {
+      width: 185px;
+      height: 185px;
+      flex-shrink: 0;
+    }
+
+    .pie-legend {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.9rem;
+    }
+
+    .pie-legend li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #e2e6f0;
+      font-weight: 600;
+    }
+
+    .pie-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* 最新の動画セクション */
+    .latest-video-box {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .latest-video-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .latest-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ff4757;
+      background: rgba(255, 71, 87, 0.15);
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #000;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
 
     .btn-sub-page {
@@ -232,763 +352,13 @@
       background-color: #2c3252;
     }
 
-    /* メインコンテンツ */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 5rem;
-    }
-
-    section {
-      margin-bottom: 4.5rem;
-      scroll-margin-top: 80px;
-    }
-
-    .section-title {
-      font-size: 1.6rem;
-      margin-bottom: 1.5rem;
-      padding-left: 0.8rem;
-      border-left: 4px solid #ff4757;
-    }
-
-    /* お知らせセクション */
-    .news-card {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 16px;
-      padding: 1.5rem 1.8rem;
-    }
-
-    .news-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .news-item {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.7rem 1.1rem;
-      padding: 0.85rem 0;
-      border-bottom: 1px solid #2c3149;
-    }
-
-    .news-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0.2rem;
-    }
-
-    .news-item:first-child {
-      padding-top: 0.2rem;
-    }
-
-    .news-date {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #5bc4f4;
-      background: rgba(91, 196, 244, 0.14);
-      padding: 0.2rem 0.65rem;
-      border-radius: 6px;
-      white-space: nowrap;
-    }
-
-    .news-text {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #f0f2f8;
-    }
-
-    /* LIVEセクション */
-    .stream-card {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 16px;
-      padding: 1.5rem;
-    }
-
-    .stream-banner {
-      background: linear-gradient(135deg, #232842 0%, #161929 100%);
-      border: 1px dashed #3e4566;
-      border-radius: 12px;
-      padding: 2.5rem 1.5rem;
-      text-align: center;
-    }
-
-    .stream-banner h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .stream-banner p {
-      color: #9ba1b0;
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .stream-btn-group {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .btn-twitch {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: #9146ff;
-      color: #fff;
-      padding: 0.85rem 1.8rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1rem;
-    }
-
-    .btn-twitch:hover {
-      background-color: #a970ff;
-    }
-
-    .btn-schedule-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: #1a1d2d;
-      color: #5bc4f4;
-      border: 1px solid #5bc4f4;
-      padding: 0.85rem 1.8rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1rem;
-      transition: background-color 0.2s, color 0.2s;
-    }
-
-    .btn-schedule-link:hover {
-      background-color: #5bc4f4;
-      color: #0f111a;
-    }
-
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      border-radius: 12px;
-      background: #000;
-    }
-
-    .video-wrapper.hidden-box {
-      display: none;
-    }
-
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .upcoming-live-box {
-      margin-top: 1.2rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid #2c3149;
-    }
-
-    .upcoming-live-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .upcoming-live-label {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #5bc4f4;
-    }
-
-    .upcoming-empty-box {
-      background: #0f111a;
-      border: 1px dashed #3e4566;
-      border-radius: 12px;
-      padding: 1.25rem 1.4rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .upcoming-empty-box.hidden-box {
-      display: none;
-    }
-
-    .upcoming-empty-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #9ba1b0;
-    }
-
-    .upcoming-empty-sub {
-      font-size: 0.84rem;
-      color: #7c8396;
-      margin-top: 0.2rem;
-    }
-
-    /* 動画セクション */
-    .latest-video-box {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .latest-video-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .latest-label {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #ff4757;
-      background: rgba(255, 71, 87, 0.15);
-      padding: 0.25rem 0.7rem;
-      border-radius: 6px;
-    }
-
-    .video-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .video-link-card {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 14px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .video-link-card:hover {
-      border-color: #ff4757;
-    }
-
-    .video-link-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .video-link-card p {
-      font-size: 0.9rem;
-      color: #9ba1b0;
-    }
-
-    .badge-tag {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #ff4757;
-    }
-
-    /* 大会・企画情報 & 出演等共通 */
-    .event-container {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 16px;
-      padding: 1.8rem;
-    }
-
-    .tab-buttons {
-      display: flex;
-      gap: 0.8rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid #2c3149;
-      padding-bottom: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .tab-btn {
-      background: #0f111a;
-      color: #9ba1b0;
-      border: 1px solid #2c3149;
-      padding: 0.65rem 1.4rem;
-      border-radius: 10px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .tab-btn:hover {
-      color: #f0f2f8;
-      border-color: #4b5278;
-    }
-
-    .tab-btn.active {
-      background: #ff4757;
-      color: #fff;
-      border-color: #ff4757;
-      box-shadow: 0 4px 12px rgba(255, 71, 87, 0.35);
-    }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    .event-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-
-    .event-item a,
-    .event-item .event-card-disabled {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      background: #0f111a;
-      border: 1px solid #2c3149;
-      border-radius: 12px;
-      padding: 1rem 1.3rem;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .event-item a:hover {
-      border-color: #ff4757;
-      transform: translateX(4px);
-    }
-
-    .event-info {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-
-    .event-name {
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: #f0f2f8;
-    }
-
-    .event-meta {
-      font-size: 0.85rem;
-      color: #9ba1b0;
-    }
-
-    .event-arrow {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #ff4757;
-      white-space: nowrap;
-    }
-
-    .event-coming-soon {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #9ba1b0;
-      background: rgba(255, 255, 255, 0.06);
-      padding: 0.25rem 0.65rem;
-      border-radius: 6px;
-      white-space: nowrap;
-    }
-
-    .achievement-category {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #ffd166;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .achievement-date {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #ff6b81;
-      background: rgba(255, 71, 87, 0.14);
-      padding: 0.15rem 0.55rem;
-      border-radius: 5px;
-      margin-bottom: 0.25rem;
-      width: fit-content;
-    }
-
     .section-action-center {
-      margin-top: 1.5rem;
+      margin-top: 2.5rem;
       text-align: center;
       display: flex;
       justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-    }
-
-    /* プロフィール & スケジュール */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 16px;
-      padding: 1.8rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card h3 {
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-      color: #fff;
-    }
-
-    .profile-meta {
-      color: #9ba1b0;
-      margin-bottom: 1rem;
-      line-height: 1.8;
-      font-size: 0.95rem;
-    }
-
-    .profile-meta strong {
-      color: #f0f2f8;
-    }
-
-    .creator-badge {
-      display: inline-block;
-      background: rgba(255, 193, 7, 0.15);
-      color: #ffd166;
-      border: 1px solid rgba(255, 193, 7, 0.35);
-      padding: 0.2rem 0.65rem;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-    }
-
-    .card-footer-btn {
-      margin-top: 1.5rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid #2c3149;
-      text-align: center;
-    }
-
-    /* レーダーチャート */
-    .radar-wrapper {
-      margin-top: 1.5rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid #2c3149;
-      text-align: center;
-    }
-
-    .radar-title {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #9ba1b0;
-      margin-bottom: 0.5rem;
-    }
-
-    .radar-svg {
-      width: 100%;
-      max-width: 340px;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-    }
-
-    .schedule-list {
-      list-style: none;
-    }
-
-    .schedule-list li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.85rem 0;
-      border-bottom: 1px solid #2c3149;
-      font-size: 1rem;
-    }
-
-    .schedule-list li:last-child {
-      border-bottom: none;
-    }
-
-    .day-badge {
-      background: rgba(255, 71, 87, 0.15);
-      color: #ff4757;
-      padding: 0.2rem 0.7rem;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
-
-    .stream-examples {
-      margin-top: 1.5rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid #2c3149;
-    }
-
-    .stream-examples h4 {
-      font-size: 0.95rem;
-      color: #f0f2f8;
-      margin-bottom: 0.8rem;
-    }
-
-    .genre-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .genre-tag {
-      background: #0f111a;
-      border: 1px solid #2c3149;
-      color: #d0d5e2;
-      padding: 0.4rem 0.85rem;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
-    }
-
-    /* 配信頻度 円グラフ */
-    .pie-wrapper {
-      margin-top: 1.5rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid #2c3149;
-    }
-
-    .pie-title {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #f0f2f8;
-      margin-bottom: 0.9rem;
-    }
-
-    .pie-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.4rem;
-      flex-wrap: wrap;
-    }
-
-    .pie-svg {
-      width: 175px;
-      height: 175px;
-      flex-shrink: 0;
-    }
-
-    .pie-legend {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      font-size: 0.88rem;
-    }
-
-    .pie-legend li {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      color: #e2e6f0;
-      font-weight: 600;
-    }
-
-    .pie-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-
-    /* LINKSセクション */
-    .links-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1rem;
-    }
-
-    .link-card {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 12px;
-      padding: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .link-card:hover {
-      border-color: #ff4757;
-    }
-
-    .link-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.25rem;
-      flex-shrink: 0;
-    }
-
-    /* ギャラリーセクション */
-    .gallery-container {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 16px;
-      padding: 1.8rem;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .gallery-item {
-      background: #0f111a;
-      border: 1px solid #2c3149;
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.75rem;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 240px;
-      object-fit: contain;
-      border-radius: 8px;
-      display: block;
-    }
-
-    .btn-toggle-notice {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      background-color: #1a1d2d;
-      color: #ffd166;
-      border: 1px solid #ffd166;
-      padding: 0.75rem 1.4rem;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background-color 0.2s, color 0.2s;
-    }
-
-    .btn-toggle-notice.is-active {
-      background-color: #ffd166;
-      color: #0f111a;
-    }
-
-    .gallery-notice-box {
-      display: none;
-      margin-top: 1.2rem;
-      background: #0f111a;
-      border: 1px solid #ffd166;
-      border-radius: 12px;
-      padding: 1.2rem 1.4rem;
-      text-align: left;
-      color: #e2e6f0;
-      font-size: 0.9rem;
-      line-height: 1.8;
-    }
-
-    .gallery-notice-box.is-visible {
-      display: block;
-    }
-
-    .gallery-notice-title {
-      font-weight: 800;
-      color: #ffd166;
-      margin-bottom: 0.4rem;
-      font-size: 0.95rem;
-    }
-
-    /* お問い合わせセンター（Googleフォーム埋め込み） */
-    .contact-card {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 16px;
-      padding: 2rem;
-    }
-
-    .contact-lead {
-      font-size: 0.95rem;
-      color: #d0d5e2;
-      margin-bottom: 1.2rem;
-    }
-
-    .contact-scopes {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .scope-box {
-      background: #0f111a;
-      border: 1px solid #2c3149;
-      border-radius: 12px;
-      padding: 1.1rem 1.3rem;
-    }
-
-    .scope-box h4 {
-      font-size: 0.98rem;
-      color: #ff4757;
-      margin-bottom: 0.35rem;
-    }
-
-    .scope-box p {
-      font-size: 0.88rem;
-      color: #9ba1b0;
-    }
-
-    .google-form-wrapper {
-      width: 100%;
-      background: #0f111a;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #2c3149;
-    }
-
-    .google-form-wrapper iframe {
-      width: 100%;
-      height: 820px;
-      border: 0;
-      display: block;
-      filter: invert(0.92) hue-rotate(180deg) contrast(0.95);
+      flex-wrap: wrap;
     }
 
     /* フッター */
@@ -1019,24 +389,14 @@
     }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
+      .page-hero h1 { font-size: 1.9rem; }
       .logo { font-size: 1.2rem; }
       .logo .sub-tagline { font-size: 0.8rem; }
       .nav-select { font-size: 0.85rem; padding: 0.45rem 2rem 0.45rem 0.85rem; }
-      .event-item a,
-      .event-item .event-card-disabled { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-      .google-form-wrapper iframe { height: 900px; }
     }
   </style>
 </head>
 <body>
-
-  <!-- 初回アクセス時のみ再生されるトランジション -->
-  <div id="intro-transition" aria-hidden="true">
-    <video id="intro-video" autoplay muted playsinline webkit-playsinline preload="auto">
-      <source src="INR.transition.normal.webm" type="video/webm">
-    </video>
-  </div>
 
   <header>
     <div class="nav-container">
@@ -1048,15 +408,11 @@
       <div class="nav-select-wrapper">
         <select id="section-jump" class="nav-select" aria-label="メニュー移動" onchange="jumpToSection(this)">
           <option value="">≡MENU</option>
-          <option value="index.html#news">お知らせ</option>
-          <option value="index.html#live">LIVE</option>
-          <option value="index.html#videos">動画</option>
-          <option value="index.html#events">大会・企画</option>
-          <option value="index.html#profile">プロフィール</option>
-          <option value="index.html#links">LINKS</option>
-          <option value="index.html#appearances">出演等</option>
-          <option value="index.html#gallery">ギャラリー</option>
-          <option value="index.html#contact">お問い合わせ</option>
+          <option value="index.html">ホームへ戻る</option>
+          <option value="#basic-info">基本情報・紹介</option>
+          <option value="#stats-and-ratio">ステータス・ジャンル比率</option>
+          <option value="#latest-video">最新の動画</option>
+          <option value="guideline.html">ガイドライン</option>
           <option value="credit.html">クレジット</option>
         </select>
         <span class="nav-select-arrow">▼</span>
@@ -1064,100 +420,80 @@
     </div>
   </header>
 
-  <section class="hero">
-    <img src="images.banner.png" alt="いぬーる プロフィール画像" class="avatar">
-    <h1>いぬーる</h1>
-    <p>YouTube・Twitchを中心にラジオ感覚で楽しめるゲーム実況・雑談などのライブ配信を行っています！ぜひ遊びに来てください。</p>
-    <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B" target="_blank" rel="noopener noreferrer" class="btn-primary">
-      ▶ YouTubeチャンネルを見る
-    </a>
+  <section class="page-hero">
+    <h1>プロフィール詳細</h1>
+    <p>いぬーるの活動概要・配信スタイル・最新動画をご案内します。</p>
   </section>
 
   <main>
-    <!-- お知らせセクション -->
-    <section id="news">
-      <h2 class="section-title">お知らせ</h2>
-      <div class="news-card">
-        <ul class="news-list">
-          <li class="news-item">
-            <span class="news-date">2026/11/28</span>
-            <span class="news-text">おふぬーるイラスト公開</span>
-          </li>
-          <li class="news-item">
-            <span class="news-date">2026/11/27</span>
-            <span class="news-text">ホームページ公開</span>
-          </li>
-        </ul>
+    <!-- 基本情報・紹介 -->
+    <section id="basic-info">
+      <h2 class="section-title">基本情報・紹介</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>☕ プロフィール</h3>
+          <div class="creator-badge">DBD Creator Gold（公認クリエイター）</div>
+          <ul class="profile-list">
+            <li>
+              <span class="profile-label">名前</span>
+              <span class="profile-value">いぬーる</span>
+            </li>
+            <li>
+              <span class="profile-label">種族</span>
+              <span class="profile-value">神獣</span>
+            </li>
+            <li>
+              <span class="profile-label">主な配信時間</span>
+              <span class="profile-value">平日 21:00〜 / 土日 不定期</span>
+            </li>
+            <li>
+              <span class="profile-label">主なジャンル</span>
+              <span class="profile-value">Dead by Daylight / ホラーゲーム / インディーズゲーム / FPS / その他（雑談等）</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>🎙️ 活動について</h3>
+          <p class="bio-text">
+            YouTube・Twitchを中心に、ラジオ感覚で楽しめるゲーム実況や雑談などのライブ配信を行っています。DBD Creator Gold（公認クリエイター）として活動しており、普段の配信に加えてカスタム企画の運営や大会の実況なども務めています。
+          </p>
+          <p class="bio-text">
+            作業のお供やBGM代わりにも気軽に立ち寄っていただける空間づくりを大切にしています。初見さんやコメント少なめの方も大歓迎ですので、ぜひお気軽に遊びに来てください！
+          </p>
+        </div>
       </div>
     </section>
 
-    <section id="live">
-      <h2 class="section-title">LIVE</h2>
-      <div class="stream-card">
-        <div id="stream-banner" class="stream-banner">
-          <h3>📡 配信チャンネルはこちら</h3>
-          <p>最新のライブ配信や待機所はYouTube・Twitchのチャンネルページからチェックできます。</p>
-          <div class="stream-btn-group">
-            <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B/streams" target="_blank" rel="noopener noreferrer" class="btn-primary">
-              ▶ YouTube 配信一覧へ
-            </a>
-            <a href="https://www.twitch.tv/inu_le" target="_blank" rel="noopener noreferrer" class="btn-twitch">
-              📺 Twitch チャンネルへ
-            </a>
-            <a href="schedule.html" class="btn-schedule-link">
-              📅 今週・今月の予定
-            </a>
-          </div>
+    <!-- ステータス・ジャンル比率 -->
+    <section id="stats-and-ratio">
+      <h2 class="section-title">ステータス・ジャンル比率</h2>
+      <div class="grid-2">
+        <div class="card radar-wrapper">
+          <div class="radar-title">📊 配信ステータス（MAX 8）</div>
+          <svg id="status-radar" class="radar-svg" viewBox="0 0 360 320" aria-label="いぬーる 配信ステータス レーダーチャート"></svg>
         </div>
 
-        <!-- LIVEセクション一番下：RSS自動取得による配信予定/配信中（タイトル表記なし） -->
-        <div id="upcoming-live-box" class="upcoming-live-box">
-          <div id="upcoming-active-area">
-            <div class="upcoming-live-header">
-              <div class="upcoming-live-label">🗓️ 配信予定/配信中</div>
-              <a id="upcoming-live-link"
-                 href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B/streams"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 class="btn-schedule-link"
-                 style="padding: 0.55rem 1.2rem; font-size: 0.88rem;">
-                YouTubeで開く →
-              </a>
-            </div>
-
-            <div id="upcoming-embed-wrap" class="video-wrapper hidden-box">
-              <iframe
-                id="upcoming-yt-player"
-                src=""
-                title="いぬーる 配信予定/配信中プレイヤー"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-              </iframe>
-            </div>
-          </div>
-
-          <div id="upcoming-empty-area" class="upcoming-empty-box hidden-box">
-            <div>
-              <div class="upcoming-empty-title">⏸️ 現在、配信予定/配信中の枠はありません</div>
-              <div class="upcoming-empty-sub">次回の配信予定は「今週・今月の予定」またはX（@inu_ru）でお知らせします。</div>
-            </div>
-            <a href="schedule.html" class="btn-schedule-link" style="padding: 0.55rem 1.2rem; font-size: 0.88rem;">
-              📅 予定表を見る →
-            </a>
+        <div class="card">
+          <h3>🥧 配信ジャンル比率</h3>
+          <div class="pie-content">
+            <svg id="genre-pie" class="pie-svg" viewBox="0 0 180 180" aria-label="配信ジャンル比率 円グラフ"></svg>
+            <ul id="genre-pie-legend" class="pie-legend"></ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="videos">
-      <h2 class="section-title">動画</h2>
-
+    <!-- 最新の動画 -->
+    <section id="latest-video">
+      <h2 class="section-title">最新の動画</h2>
       <div id="latest-video-section" class="latest-video-box">
         <div class="latest-video-header">
           <span class="latest-label">🎬 最新の動画アーカイブ</span>
         </div>
-        <div id="latest-video-wrapper" class="video-wrapper">
-          <iframe id="latest-yt-player"
+        <div class="video-wrapper">
+          <iframe
+            id="latest-yt-player"
             src=""
             title="いぬーる 最新の動画アーカイブ"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -1166,299 +502,9 @@
         </div>
       </div>
 
-      <div class="video-cards">
-        <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B/streams" target="_blank" rel="noopener noreferrer" class="video-link-card">
-          <div>
-            <h3>📡 ライブ配信アーカイブ</h3>
-            <p>過去のゲーム実況や雑談配信のアーカイブ一覧をまとめてチェックできます。</p>
-          </div>
-          <span class="badge-tag">YouTubeで開く →</span>
-        </a>
-
-        <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B/videos" target="_blank" rel="noopener noreferrer" class="video-link-card">
-          <div>
-            <h3>🎬 投稿動画・ダイジェスト</h3>
-            <p>編集動画や見どころまとめなど、アップロードされた動画一覧はこちら。</p>
-          </div>
-          <span class="badge-tag">YouTubeで開く →</span>
-        </a>
-
-        <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B/playlists" target="_blank" rel="noopener noreferrer" class="video-link-card">
-          <div>
-            <h3>📂 再生リスト</h3>
-            <p>タイトル別・シリーズ別にまとめた再生リストから作業用BGM感覚で視聴できます。</p>
-          </div>
-          <span class="badge-tag">YouTubeで開く →</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- 大会・企画情報セクション -->
-    <section id="events">
-      <h2 class="section-title">大会・企画情報</h2>
-      <div class="event-container">
-        <div class="tab-buttons">
-          <button class="tab-btn active" onclick="switchEventTab('caster', this)">🎙️ 実況・解説</button>
-          <button class="tab-btn" onclick="switchEventTab('player', this)">🏆 出場</button>
-        </div>
-
-        <!-- 実況・解説タブ -->
-        <div id="tab-caster" class="tab-panel active">
-          <ul class="event-list">
-            <li class="event-item">
-              <a href="https://soradbdkkp-lang.github.io/frog-good-guy-cup/" target="_blank" rel="noopener noreferrer">
-                <div class="event-info">
-                  <span class="achievement-date">2027/1/11(月・祝)</span>
-                  <span class="event-name">ふろぐ Good Guy Cup</span>
-                  <span class="event-meta">大会特設ページ</span>
-                </div>
-                <span class="event-arrow">詳細を見る →</span>
-              </a>
-            </li>
-            <li class="event-item">
-              <a href="inr-custom-fever.html">
-                <div class="event-info">
-                  <span class="event-name">INR Custom Fever</span>
-                  <span class="event-meta">大会特設ページ</span>
-                </div>
-                <span class="event-arrow">詳細を見る →</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 出場タブ -->
-        <div id="tab-player" class="tab-panel">
-          <ul class="event-list">
-            <li class="event-item">
-              <div class="event-card-disabled">
-                <div class="event-info">
-                  <span class="event-name">出場大会・企画情報</span>
-                  <span class="event-meta">詳細ページ準備中</span>
-                </div>
-                <span class="event-coming-soon">Coming Soon</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- プロフィールセクション -->
-    <section id="profile">
-      <h2 class="section-title">プロフィール</h2>
-      <div class="grid-2">
-        <div class="card">
-          <div>
-            <h3>☕ いぬーるについて</h3>
-            <div class="creator-badge">DBD Creator Gold（公認クリエイター）</div>
-            <p class="profile-meta">
-              <strong>名前：</strong> いぬーる<br>
-              <strong>種族：</strong> 神獣<br>
-              <strong>主なジャンル：</strong> ゲーム配信 / 雑談 / 参加型企画
-            </p>
-            <p style="font-size: 0.95rem;">
-              DBD Creator Gold（公認クリエイター）として活動中。普段のラジオのようなゲーム配信・雑談に加えて、大会MCや実況なども務めています。初見さんもコメント大歓迎ですので、気軽に遊びに来てください！
-            </p>
-
-            <!-- 7項目レーダーチャート（MAX 8） -->
-            <div class="radar-wrapper">
-              <div class="radar-title">📊 配信ステータス（MAX 8）</div>
-              <svg id="status-radar" class="radar-svg" viewBox="0 0 360 320" aria-label="いぬーる 配信ステータス レーダーチャート"></svg>
-            </div>
-          </div>
-
-          <div class="card-footer-btn">
-            <a href="profile.html" class="btn-sub-page">📋 プロフィール詳細を見る →</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <div>
-            <h3>📅 配信スケジュール</h3>
-            <ul class="schedule-list">
-              <li><span class="day-badge">平日</span> <span>21:00〜</span></li>
-              <li><span class="day-badge">土日</span> <span>不定期</span></li>
-            </ul>
-
-            <div class="stream-examples">
-              <h4>🎮 配信例</h4>
-              <div class="genre-tags">
-                <span class="genre-tag">Dead by Daylight</span>
-                <span class="genre-tag">ホラーゲーム</span>
-                <span class="genre-tag">インディーズゲーム</span>
-                <span class="genre-tag">FPS</span>
-                <span class="genre-tag">その他（雑談等）</span>
-              </div>
-            </div>
-
-            <!-- 配信頻度 円グラフ -->
-            <div class="pie-wrapper">
-              <div class="pie-title">🥧 配信ジャンル比率</div>
-              <div class="pie-content">
-                <svg id="genre-pie" class="pie-svg" viewBox="0 0 180 180" aria-label="配信ジャンル比率 円グラフ"></svg>
-                <ul id="genre-pie-legend" class="pie-legend"></ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="card-footer-btn">
-            <a href="guideline.html" class="btn-sub-page">📜 ガイドラインを見る →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- LINKSセクション -->
-    <section id="links">
-      <h2 class="section-title">LINKS</h2>
-      <div class="links-grid">
-        <a href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B" target="_blank" rel="noopener noreferrer" class="link-card">
-          <div class="link-icon" style="color: #ff4757;">▶</div>
-          <div>
-            <div style="font-weight: 700;">YouTube</div>
-            <div style="font-size: 0.8rem; color: #9ba1b0;">@いぬーる</div>
-          </div>
-        </a>
-
-        <a href="https://www.twitch.tv/inu_le" target="_blank" rel="noopener noreferrer" class="link-card">
-          <div class="link-icon" style="color: #9146ff;">📺</div>
-          <div>
-            <div style="font-weight: 700;">Twitch</div>
-            <div style="font-size: 0.8rem; color: #9ba1b0;">inu_le</div>
-          </div>
-        </a>
-
-        <a href="https://x.com/inu_ru?s=21&t=ltL9Liyhwv-DHtlYqsThFA" target="_blank" rel="noopener noreferrer" class="link-card">
-          <div class="link-icon">𝕏</div>
-          <div>
-            <div style="font-weight: 700;">X (Twitter)</div>
-            <div style="font-size: 0.8rem; color: #9ba1b0;">@inu_ru</div>
-          </div>
-        </a>
-
-        <a href="https://inu-ru.booth.pm/" target="_blank" rel="noopener noreferrer" class="link-card">
-          <div class="link-icon" style="color: #fc4d50;">🛍️</div>
-          <div>
-            <div style="font-weight: 700;">グッズ</div>
-            <div style="font-size: 0.8rem; color: #9ba1b0;">BOOTH 公式ショップ</div>
-          </div>
-        </a>
-
-        <a href="https://ouen55.com/inu_le/" target="_blank" rel="noopener noreferrer" class="link-card">
-          <div class="link-icon" style="color: #ff9f43;">🎁</div>
-          <div>
-            <div style="font-weight: 700;">ファンレター・差し入れ</div>
-            <div style="font-size: 0.8rem; color: #9ba1b0;">応援・プレゼント</div>
-          </div>
-        </a>
-
-        <a href="https://marshmallow-qa.com/ey4fuhmuiyj43fh?t=hmRGpH&utm_medium=url_text&utm_source=promotion" target="_blank" rel="noopener noreferrer" class="link-card">
-          <div class="link-icon" style="color: #f368e0;">💌</div>
-          <div>
-            <div style="font-weight: 700;">匿名メッセージ</div>
-            <div style="font-size: 0.8rem; color: #9ba1b0;">マシュマロ</div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- 出演等セクション（最新2件のみ表記＋アーカイブボタン） -->
-    <section id="appearances">
-      <h2 class="section-title">出演等</h2>
-      <div class="event-container">
-        <div class="achievement-category">🎙️ 実況・解説</div>
-        <ul class="event-list">
-          <li class="event-item">
-            <a href="https://youtube.com/playlist?list=PLy__n2IwFh6kvoJ8o9FqR8b4tNwJBhBq6&si=nU3sXwqzOU8e4Wkw" target="_blank" rel="noopener noreferrer">
-              <div class="event-info">
-                <span class="achievement-date">Apr - Nov 2026</span>
-                <span class="event-name">INR CUSTOM Fever</span>
-                <span class="event-meta">運営・実況（再生リスト）</span>
-              </div>
-              <span class="event-arrow">再生リストを見る →</span>
-            </a>
-          </li>
-
-          <li class="event-item">
-            <a href="https://www.youtube.com/live/3hy2EtCIWXY?si=NzdpwRbDjbsmfRsb" target="_blank" rel="noopener noreferrer">
-              <div class="event-info">
-                <span class="achievement-date">Apr 2026</span>
-                <span class="event-name">スケベな罠師選手権Vol.4</span>
-                <span class="event-meta">実況（配信アーカイブ）</span>
-              </div>
-              <span class="event-arrow">アーカイブを見る →</span>
-            </a>
-          </li>
-        </ul>
-
-        <div class="section-action-center">
-          <a href="archive.html" class="btn-sub-page">📂 アーカイブを見る →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ギャラリーセクション -->
-    <section id="gallery">
-      <h2 class="section-title">ギャラリー</h2>
-      <div class="gallery-container">
-        <div class="gallery-grid">
-          <div class="gallery-item">
-            <img src="images.banner.png" alt="いぬーる バナーイラスト">
-          </div>
-          <div class="gallery-item">
-            <img src="images.summer.png" alt="いぬーる サマーイラスト">
-          </div>
-          <div class="gallery-item">
-            <img src="images.soccer.png" alt="いぬーる サッカーイラスト">
-          </div>
-        </div>
-
-        <div class="section-action-center">
-          <a href="fanart.html" class="btn-sub-page">🎨 FAはこちら →</a>
-          <button type="button" id="toggle-notice-btn" class="btn-toggle-notice" aria-expanded="false" aria-controls="gallery-notice-box">
-            ⚠️ 注意事項
-          </button>
-        </div>
-
-        <div id="gallery-notice-box" class="gallery-notice-box" aria-live="polite">
-          <div class="gallery-notice-title">ギャラリー注意事項</div>
-          <p>
-            本ギャラリーに掲載しているイラストの著作権は、各制作者様に帰属します。<br>
-            無断転載、無断配布、無断加工、自作発言を禁止します。<br>
-            また、掲載作品およびその画像データを、AI学習（機械学習・生成AIの学習データへの利用を含む）に使用することを禁止します。<br>
-            イラストをSNS等で紹介する場合は、制作者様のガイドラインをご確認ください。
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- お問い合わせセンターセクション（Googleフォーム埋め込み） -->
-    <section id="contact">
-      <h2 class="section-title">お問い合わせセンター</h2>
-      <div class="contact-card">
-        <p class="contact-lead">
-          お仕事・企画のご相談や出演依頼などは、下記のフォームよりお気軽にお問い合わせください。
-        </p>
-
-        <div class="contact-scopes">
-          <div class="scope-box">
-            <h4>🎮 ゲーム案件・PRのご依頼</h4>
-            <p>ゲームの先行プレイやPR、タイアップ配信・動画制作など</p>
-          </div>
-          <div class="scope-box">
-            <h4>🎙️ 大会・イベント出演のご依頼</h4>
-            <p>ゲーム大会・企画のMC、実況・解説、ゲスト出演など</p>
-          </div>
-        </div>
-
-        <div class="google-form-wrapper">
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSduqIx-IgFNpDvhUjxbmOAJybvzzifsBdLu8PX03I9PsGnjbw/viewform?embedded=true"
-            title="いぬーる お問い合わせフォーム">
-            読み込んでいます…
-          </iframe>
-        </div>
+      <div class="section-action-center">
+        <a href="index.html" class="btn-sub-page">← トップページへ戻る</a>
+        <a href="guideline.html" class="btn-sub-page">📜 ガイドラインを見る →</a>
       </div>
     </section>
   </main>
@@ -1477,9 +523,7 @@
   </footer>
 
   <script>
-    const YOUTUBE_CHANNEL_ID = 'UC0cgRgovA84hfh-P7G-sSKw';
     const ARCHIVE_PLAYLIST_ID = 'PLQXss-R88kso';
-    const TRANSITION_STORAGE_KEY = 'inuru_intro_transition_played';
 
     function extractYouTubeVideoId(urlOrId) {
       if (!urlOrId) return '';
@@ -1506,142 +550,42 @@
       return '';
     }
 
-    async function fetchFirstItemFromRss(rssUrl) {
-      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-
-      if (data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
-        const firstItem = data.items[0];
-        const videoId =
-          extractYouTubeVideoId(firstItem.guid) ||
-          extractYouTubeVideoId(firstItem.link);
-
-        if (videoId) {
-          return {
-            videoId,
-            link: firstItem.link || ('https://www.youtube.com/watch?v=' + videoId)
-          };
-        }
-      }
-      return null;
-    }
-
-    // 最新の動画アーカイブ：指定再生リスト（PLQXss-R88kso）の1番目を表示（タイトル非表示）
-    (async function initLatestVideoArchive() {
+    // 最新の動画：指定再生リスト（PLQXss-R88kso）の1番目を自動取得
+    (async function initProfileLatestVideo() {
       const player = document.getElementById('latest-yt-player');
       const boxEl = document.getElementById('latest-video-section');
       if (!player || !boxEl) return;
 
-      try {
-        const playlistRss = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + ARCHIVE_PLAYLIST_ID;
-        const item = await fetchFirstItemFromRss(playlistRss);
+      const playlistRss = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + ARCHIVE_PLAYLIST_ID;
+      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(playlistRss);
 
-        if (item && item.videoId) {
-          player.src = 'https://www.youtube.com/embed/' + item.videoId;
-          return;
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
+          const firstItem = data.items[0];
+          const videoId =
+            extractYouTubeVideoId(firstItem.guid) ||
+            extractYouTubeVideoId(firstItem.link);
+
+          if (videoId) {
+            player.src = 'https://www.youtube.com/embed/' + videoId;
+            return;
+          }
         }
         boxEl.style.display = 'none';
       } catch (e) {
         boxEl.style.display = 'none';
       }
-    })();
-
-    // LIVEセクション一番下：チャンネルRSSから最新のものを自動取得し「配信予定/配信中」として表示（タイトル非表示）
-    (async function initAutoUpcomingOrLive() {
-      const activeArea = document.getElementById('upcoming-active-area');
-      const emptyArea = document.getElementById('upcoming-empty-area');
-      const linkEl = document.getElementById('upcoming-live-link');
-      const wrapEl = document.getElementById('upcoming-embed-wrap');
-      const iframeEl = document.getElementById('upcoming-yt-player');
-      if (!activeArea || !emptyArea || !linkEl || !wrapEl || !iframeEl) return;
-
-      try {
-        const channelRss = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + YOUTUBE_CHANNEL_ID;
-        const item = await fetchFirstItemFromRss(channelRss);
-
-        if (item && item.videoId) {
-          emptyArea.classList.add('hidden-box');
-          activeArea.style.display = 'block';
-
-          linkEl.href = item.link;
-          linkEl.textContent = 'YouTubeで開く →';
-
-          iframeEl.src = 'https://www.youtube.com/embed/' + item.videoId + '?autoplay=1&mute=1';
-          wrapEl.classList.remove('hidden-box');
-          return;
-        }
-
-        activeArea.style.display = 'none';
-        iframeEl.src = '';
-        wrapEl.classList.add('hidden-box');
-        emptyArea.classList.remove('hidden-box');
-      } catch (e) {
-        activeArea.style.display = 'none';
-        iframeEl.src = '';
-        wrapEl.classList.add('hidden-box');
-        emptyArea.classList.remove('hidden-box');
-      }
-    })();
-
-    // 初回アクセス時のみトランジション動画を再生
-    (function initIntroTransition() {
-      const overlay = document.getElementById('intro-transition');
-      const video = document.getElementById('intro-video');
-      if (!overlay || !video) return;
-
-      const alreadyPlayed = sessionStorage.getItem(TRANSITION_STORAGE_KEY) === '1';
-      if (alreadyPlayed) {
-        overlay.classList.add('is-skipped');
-        return;
-      }
-
-      sessionStorage.setItem(TRANSITION_STORAGE_KEY, '1');
-      let finished = false;
-
-      const finishTransition = () => {
-        if (finished) return;
-        finished = true;
-        overlay.classList.add('is-hidden');
-        setTimeout(() => {
-          overlay.classList.add('is-skipped');
-        }, 500);
-      };
-
-      video.addEventListener('ended', finishTransition, { once: true });
-      video.addEventListener('error', finishTransition, { once: true });
-
-      const playPromise = video.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {
-          finishTransition();
-        });
-      }
-
-      // 動画が読み込めない場合の安全フォールバック（8秒）
-      setTimeout(finishTransition, 8000);
-    })();
-
-    // ギャラリー注意事項（押したら表示、もう一度押したら消えるトグル）
-    (function initToggleNotice() {
-      const btn = document.getElementById('toggle-notice-btn');
-      const box = document.getElementById('gallery-notice-box');
-      if (!btn || !box) return;
-
-      btn.addEventListener('click', () => {
-        const isVisible = box.classList.toggle('is-visible');
-        btn.classList.toggle('is-active', isVisible);
-        btn.setAttribute('aria-expanded', String(isVisible));
-      });
     })();
 
     // ヘッダープルダウン移動
     function jumpToSection(selectEl) {
       const val = selectEl.value;
       if (!val) return;
-      if (val.startsWith('index.html#')) {
-        const hash = val.replace('index.html', '');
-        const targetEl = document.querySelector(hash);
+      if (val.startsWith('#')) {
+        const targetEl = document.querySelector(val);
         if (targetEl) {
           targetEl.scrollIntoView({ behavior: 'smooth' });
         }
@@ -1651,7 +595,7 @@
       selectEl.selectedIndex = 0;
     }
 
-    // 7項目レーダーチャート描画（MAX 8 / リスナー愛 8）
+    // 7項目レーダーチャート描画
     (function drawRadarChart() {
       const svg = document.getElementById('status-radar');
       if (!svg) return;
@@ -1811,17 +755,6 @@
         legend.appendChild(li);
       });
     })();
-
-    function switchEventTab(tabName, btn) {
-      document.querySelectorAll('.tab-panel').forEach(panel => {
-        panel.classList.remove('active');
-      });
-      document.querySelectorAll('.tab-btn').forEach(button => {
-        button.classList.remove('active');
-      });
-      document.getElementById('tab-' + tabName).classList.add('active');
-      btn.classList.add('active');
-    }
   </script>
 </body>
 </html>
