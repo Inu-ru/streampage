@@ -251,6 +251,54 @@
       border-left: 4px solid #ff4757;
     }
 
+    /* お知らせセクション */
+    .news-card {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.5rem 1.8rem;
+    }
+
+    .news-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-item {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.7rem 1.1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid #2c3149;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0.2rem;
+    }
+
+    .news-item:first-child {
+      padding-top: 0.2rem;
+    }
+
+    .news-date {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #5bc4f4;
+      background: rgba(91, 196, 244, 0.14);
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .news-text {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #f0f2f8;
+    }
+
     /* LIVEセクション */
     .stream-card {
       background: #1a1d2d;
@@ -342,42 +390,6 @@
       border: 0;
     }
 
-    .stream-controls {
-      margin-top: 1.2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .input-group {
-      display: flex;
-      gap: 0.5rem;
-      flex: 1;
-      min-width: 260px;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 0.6rem 1rem;
-      border-radius: 8px;
-      border: 1px solid #2c3149;
-      background: #0f111a;
-      color: #f0f2f8;
-      font-size: 0.9rem;
-    }
-
-    .btn-small {
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      border: none;
-      background: #3742fa;
-      color: #fff;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
     .upcoming-live-box {
       margin-top: 1.2rem;
       padding-top: 1.2rem;
@@ -394,15 +406,9 @@
     }
 
     .upcoming-live-label {
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: #5bc4f4;
-    }
-
-    .upcoming-live-desc {
-      font-size: 0.95rem;
-      color: #e2e6f0;
-      font-weight: 700;
     }
 
     .upcoming-empty-box {
@@ -458,12 +464,6 @@
       background: rgba(255, 71, 87, 0.15);
       padding: 0.25rem 0.7rem;
       border-radius: 6px;
-    }
-
-    .latest-video-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #f0f2f8;
     }
 
     .video-cards {
@@ -1003,8 +1003,8 @@
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 0.8rem;
+      gap: 1rem 1.5rem;
+      margin-bottom: 0.9rem;
       flex-wrap: wrap;
     }
 
@@ -1048,6 +1048,7 @@
       <div class="nav-select-wrapper">
         <select id="section-jump" class="nav-select" aria-label="メニュー移動" onchange="jumpToSection(this)">
           <option value="">≡MENU</option>
+          <option value="index.html#news">お知らせ</option>
           <option value="index.html#live">LIVE</option>
           <option value="index.html#videos">動画</option>
           <option value="index.html#events">大会・企画</option>
@@ -1073,18 +1074,26 @@
   </section>
 
   <main>
+    <!-- お知らせセクション -->
+    <section id="news">
+      <h2 class="section-title">お知らせ</h2>
+      <div class="news-card">
+        <ul class="news-list">
+          <li class="news-item">
+            <span class="news-date">2026/11/28</span>
+            <span class="news-text">おふぬーるイラスト公開</span>
+          </li>
+          <li class="news-item">
+            <span class="news-date">2026/11/27</span>
+            <span class="news-text">ホームページ公開</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
     <section id="live">
       <h2 class="section-title">LIVE</h2>
       <div class="stream-card">
-        <div id="video-box" class="video-wrapper hidden-box">
-          <iframe id="yt-player"
-            src=""
-            title="いぬーる YouTube Stream"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-        </div>
-
         <div id="stream-banner" class="stream-banner">
           <h3>📡 配信チャンネルはこちら</h3>
           <p>最新のライブ配信や待機所はYouTube・Twitchのチャンネルページからチェックできます。</p>
@@ -1101,24 +1110,11 @@
           </div>
         </div>
 
-        <div class="stream-controls">
-          <span style="font-size: 0.85rem; color: #9ba1b0;">
-            ※配信枠URLを貼るとこの場で再生できます：
-          </span>
-          <div class="input-group">
-            <input type="text" id="video-url-input" placeholder="https://www.youtube.com/watch?v=... または /live/...">
-            <button class="btn-small" onclick="loadVideo()">プレイヤーに読込</button>
-          </div>
-        </div>
-
-        <!-- LIVEセクション一番下：RSS自動取得による配信予定/配信中 -->
+        <!-- LIVEセクション一番下：RSS自動取得による配信予定/配信中（タイトル表記なし） -->
         <div id="upcoming-live-box" class="upcoming-live-box">
           <div id="upcoming-active-area">
             <div class="upcoming-live-header">
-              <div>
-                <div class="upcoming-live-label">🗓️ 配信予定/配信中</div>
-                <div id="upcoming-live-desc" class="upcoming-live-desc">読み込み中...</div>
-              </div>
+              <div class="upcoming-live-label">🗓️ 配信予定/配信中</div>
               <a id="upcoming-live-link"
                  href="https://www.youtube.com/@%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B/streams"
                  target="_blank"
@@ -1159,12 +1155,11 @@
       <div id="latest-video-section" class="latest-video-box">
         <div class="latest-video-header">
           <span class="latest-label">🎬 最新の動画アーカイブ</span>
-          <span id="latest-video-title" class="latest-video-title">読み込み中...</span>
         </div>
         <div id="latest-video-wrapper" class="video-wrapper">
           <iframe id="latest-yt-player"
             src=""
-            title="いぬーる 最新動画アーカイブ"
+            title="いぬーる 最新の動画アーカイブ"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
           </iframe>
@@ -1213,6 +1208,7 @@
             <li class="event-item">
               <a href="https://soradbdkkp-lang.github.io/frog-good-guy-cup/" target="_blank" rel="noopener noreferrer">
                 <div class="event-info">
+                  <span class="achievement-date">2027/1/11(月・祝)</span>
                   <span class="event-name">ふろぐ Good Guy Cup</span>
                   <span class="event-meta">大会特設ページ</span>
                 </div>
@@ -1469,6 +1465,11 @@
 
   <footer>
     <div class="footer-links">
+      <a href="profile.html">プロフィール詳細</a>
+      <a href="guideline.html">ガイドライン</a>
+      <a href="fanart.html">FA</a>
+      <a href="inr-custom-fever.html">INR CUSTOM Fever</a>
+      <a href="credit.html">クレジット</a>
       <a href="sitemap.html">サイトマップ</a>
       <a href="privacy.html">プライバシーポリシー</a>
     </div>
@@ -1519,7 +1520,6 @@
         if (videoId) {
           return {
             videoId,
-            title: firstItem.title || '',
             link: firstItem.link || ('https://www.youtube.com/watch?v=' + videoId)
           };
         }
@@ -1527,12 +1527,11 @@
       return null;
     }
 
-    // 最新の動画アーカイブ：指定再生リスト（PLQXss-R88kso）の1番目を表示
+    // 最新の動画アーカイブ：指定再生リスト（PLQXss-R88kso）の1番目を表示（タイトル非表示）
     (async function initLatestVideoArchive() {
       const player = document.getElementById('latest-yt-player');
-      const titleEl = document.getElementById('latest-video-title');
       const boxEl = document.getElementById('latest-video-section');
-      if (!player || !titleEl || !boxEl) return;
+      if (!player || !boxEl) return;
 
       try {
         const playlistRss = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + ARCHIVE_PLAYLIST_ID;
@@ -1540,7 +1539,6 @@
 
         if (item && item.videoId) {
           player.src = 'https://www.youtube.com/embed/' + item.videoId;
-          titleEl.textContent = item.title;
           return;
         }
         boxEl.style.display = 'none';
@@ -1549,15 +1547,14 @@
       }
     })();
 
-    // LIVEセクション一番下：チャンネルRSSから最新のものを自動取得し「配信予定/配信中」として表示
+    // LIVEセクション一番下：チャンネルRSSから最新のものを自動取得し「配信予定/配信中」として表示（タイトル非表示）
     (async function initAutoUpcomingOrLive() {
       const activeArea = document.getElementById('upcoming-active-area');
       const emptyArea = document.getElementById('upcoming-empty-area');
       const linkEl = document.getElementById('upcoming-live-link');
-      const descEl = document.getElementById('upcoming-live-desc');
       const wrapEl = document.getElementById('upcoming-embed-wrap');
       const iframeEl = document.getElementById('upcoming-yt-player');
-      if (!activeArea || !emptyArea || !linkEl || !descEl || !wrapEl || !iframeEl) return;
+      if (!activeArea || !emptyArea || !linkEl || !wrapEl || !iframeEl) return;
 
       try {
         const channelRss = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + YOUTUBE_CHANNEL_ID;
@@ -1567,9 +1564,6 @@
           emptyArea.classList.add('hidden-box');
           activeArea.style.display = 'block';
 
-          descEl.textContent = item.title
-            ? ('配信予定/配信中：' + item.title)
-            : '配信予定/配信中';
           linkEl.href = item.link;
           linkEl.textContent = 'YouTubeで開く →';
 
@@ -1817,20 +1811,6 @@
         legend.appendChild(li);
       });
     })();
-
-    function loadVideo() {
-      const input = document.getElementById('video-url-input').value.trim();
-      if (!input) return;
-
-      const videoId = extractYouTubeVideoId(input);
-      if (videoId) {
-        document.getElementById('yt-player').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
-        document.getElementById('video-box').classList.remove('hidden-box');
-        document.getElementById('stream-banner').style.display = 'none';
-      } else {
-        alert('有効なYouTube動画のURL、または11桁の動画IDを入力してください。');
-      }
-    }
 
     function switchEventTab(tabName, btn) {
       document.querySelectorAll('.tab-panel').forEach(panel => {
