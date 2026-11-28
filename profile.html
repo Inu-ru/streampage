@@ -5,16 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>プロフィール詳細 | いぬーる ～ラジオのようなゲーム配信～</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
       background-color: #0f111a;
       color: #f0f2f8;
-      line-height: 1.75;
+      line-height: 1.6;
     }
-    a { color: inherit; text-decoration: none; }
 
-    /* 共通ヘッダー */
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ヘッダー */
     header {
       background: rgba(15, 17, 26, 0.95);
       border-bottom: 1px solid #2c3149;
@@ -22,6 +35,7 @@
       top: 0;
       z-index: 100;
     }
+
     .nav-container {
       max-width: 1100px;
       margin: 0 auto;
@@ -32,14 +46,17 @@
       flex-wrap: wrap;
       gap: 0.8rem 1.5rem;
     }
+
     .logo {
       font-size: 1.4rem;
       font-weight: 800;
+      letter-spacing: 0.5px;
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: 0.65rem;
     }
+
     .header-icon {
       width: 38px;
       height: 38px;
@@ -49,11 +66,24 @@
       box-shadow: 0 0 8px #5bc4f4, 0 0 16px rgba(91, 196, 244, 0.65);
       flex-shrink: 0;
     }
-    .logo .sub-tagline { font-size: 0.9rem; font-weight: 500; color: #9ba1b0; }
-    .nav-select-wrapper { position: relative; display: inline-flex; align-items: center; }
+
+    .logo .sub-tagline {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #9ba1b0;
+    }
+
+    /* プルダウンナビゲーション */
+    .nav-select-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
     .nav-select {
       appearance: none;
       -webkit-appearance: none;
+      -moz-appearance: none;
       background-color: #1a1d2d;
       color: #f0f2f8;
       border: 1px solid #3e4566;
@@ -63,115 +93,226 @@
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .nav-select:hover, .nav-select:focus { border-color: #ff4757; outline: none; }
-    .nav-select option { background-color: #1a1d2d; color: #f0f2f8; }
-    .nav-select-arrow { position: absolute; right: 0.8rem; pointer-events: none; font-size: 0.72rem; color: #ff4757; }
 
-    /* メイン */
-    main { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
-    .page-header { text-align: center; margin-bottom: 2.5rem; }
-    .page-header h1 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.7rem;
-      border-bottom: 2px solid #ff4757;
-      display: inline-block;
+    .nav-select:hover,
+    .nav-select:focus {
+      border-color: #ff4757;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.2);
     }
-    .profile-hero-box {
-      background: #1a1d2d;
-      border: 1px solid #2c3149;
-      border-radius: 16px;
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.8rem;
-    }
-    .profile-hero-img {
-      width: 220px;
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-      margin: 0 auto;
-    }
-    .profile-hero-info { flex: 1; min-width: 260px; }
-    .profile-hero-info h2 { font-size: 1.8rem; margin-bottom: 0.8rem; color: #fff; }
-    .basic-list { list-style: none; margin-bottom: 1.2rem; }
-    .basic-list li { margin-bottom: 0.55rem; font-size: 0.98rem; color: #e2e6f0; }
-    .debut-dates {
-      padding-left: 1rem;
-      margin-top: 0.2rem;
+
+    .nav-select option {
+      background-color: #1a1d2d;
       color: #f0f2f8;
     }
-    .intro-text {
-      background: #0f111a;
-      border: 1px solid #2c3149;
-      border-radius: 12px;
-      padding: 1.2rem;
-      font-size: 0.95rem;
-      color: #d0d5e2;
+
+    .nav-select-arrow {
+      position: absolute;
+      right: 0.8rem;
+      pointer-events: none;
+      font-size: 0.72rem;
+      color: #ff4757;
     }
 
-    .detail-card {
+    /* ページヘッダー */
+    .page-hero {
+      text-align: center;
+      padding: 3.5rem 1.5rem 2.5rem;
+      background: radial-gradient(circle at top, #1f243d 0%, #0f111a 72%);
+    }
+
+    .page-hero h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-hero p {
+      color: #9ba1b0;
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    /* メインコンテンツ */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 80px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.4rem;
+      padding-left: 0.8rem;
+      border-left: 4px solid #ff4757;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
       background: #1a1d2d;
       border: 1px solid #2c3149;
       border-radius: 16px;
       padding: 1.8rem;
-      margin-bottom: 1.5rem;
     }
-    .detail-card h3 {
-      font-size: 1.25rem;
+
+    .card h3 {
       margin-bottom: 1rem;
-      padding-left: 0.75rem;
-      border-left: 4px solid #5bc4f4;
+      font-size: 1.2rem;
       color: #fff;
     }
-    .sub-block { margin-bottom: 1rem; }
-    .sub-block:last-child { margin-bottom: 0; }
-    .sub-block-title { font-weight: 700; color: #ffd166; margin-bottom: 0.25rem; }
-    .indent-text { padding-left: 1.2rem; color: #d0d5e2; font-size: 0.95rem; }
 
-    .game-example-links {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.55rem;
-      padding-left: 1.2rem;
-      margin-top: 0.35rem;
-    }
-    .game-link-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      background: rgba(91, 196, 244, 0.14);
-      border: 1px solid #5bc4f4;
-      color: #5bc4f4;
-      padding: 0.25rem 0.75rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
+    .creator-badge {
+      display: inline-block;
+      background: rgba(255, 193, 7, 0.15);
+      color: #ffd166;
+      border: 1px solid rgba(255, 193, 7, 0.35);
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
       font-weight: 700;
-      transition: background-color 0.2s, color 0.2s;
+      margin-bottom: 0.9rem;
     }
-    .game-link-btn:hover {
-      background: #5bc4f4;
-      color: #0f111a;
-    }
-    .game-plain-item {
-      color: #d0d5e2;
+
+    .profile-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
       font-size: 0.95rem;
     }
 
-    .video-embed-box {
-      margin-top: 1.2rem;
+    .profile-list li {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0.8rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid #2c3149;
     }
-    .video-embed-label {
-      font-size: 0.9rem;
+
+    .profile-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .profile-label {
+      color: #9ba1b0;
       font-weight: 700;
-      color: #ffd166;
+      min-width: 110px;
+    }
+
+    .profile-value {
+      color: #f0f2f8;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .bio-text {
+      color: #d0d5e2;
+      font-size: 0.95rem;
+      line-height: 1.85;
+    }
+
+    .bio-text + .bio-text {
+      margin-top: 0.9rem;
+    }
+
+    /* レーダーチャート */
+    .radar-wrapper {
+      text-align: center;
+    }
+
+    .radar-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f0f2f8;
       margin-bottom: 0.6rem;
     }
+
+    .radar-svg {
+      width: 100%;
+      max-width: 350px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* 円グラフ */
+    .pie-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      padding: 0.6rem 0;
+    }
+
+    .pie-svg {
+      width: 185px;
+      height: 185px;
+      flex-shrink: 0;
+    }
+
+    .pie-legend {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.9rem;
+    }
+
+    .pie-legend li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #e2e6f0;
+      font-weight: 600;
+    }
+
+    .pie-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* 最新の動画セクション */
+    .latest-video-box {
+      background: #1a1d2d;
+      border: 1px solid #2c3149;
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .latest-video-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .latest-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ff4757;
+      background: rgba(255, 71, 87, 0.15);
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+    }
+
     .video-wrapper {
       position: relative;
       padding-bottom: 56.25%;
@@ -179,8 +320,8 @@
       overflow: hidden;
       border-radius: 12px;
       background: #000;
-      border: 1px solid #2c3149;
     }
+
     .video-wrapper iframe {
       position: absolute;
       top: 0;
@@ -190,111 +331,37 @@
       border: 0;
     }
 
-    .tag-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0.85rem;
-    }
-    .tag-btn-card {
-      background: #0f111a;
-      border: 1px solid #2c3149;
-      border-radius: 12px;
-      padding: 0.95rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 0.45rem;
-      transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
-    }
-    .tag-btn-card:hover {
-      border-color: #5bc4f4;
-      background-color: #151929;
-      transform: translateY(-2px);
-    }
-    .tag-label { font-size: 0.82rem; color: #9ba1b0; display: block; }
-    .tag-value { font-size: 1.08rem; font-weight: 700; color: #5bc4f4; }
-    .tag-search-hint { font-size: 0.78rem; color: #ffd166; font-weight: 600; }
-
-    .member-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.2rem;
-      margin-top: 1rem;
-    }
-    .member-tier {
-      background: #0f111a;
-      border: 1px solid #2c3149;
-      border-radius: 12px;
-      padding: 1.3rem;
-    }
-    .member-tier h4 {
-      font-size: 1.1rem;
-      color: #ff6b81;
-      margin-bottom: 0.6rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .member-price {
-      background: rgba(255, 71, 87, 0.15);
-      color: #ff4757;
-      padding: 0.15rem 0.6rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-    }
-    .member-tier p { font-size: 0.92rem; color: #d0d5e2; }
-
-    .member-join-wrap {
-      margin-top: 1.4rem;
-      text-align: center;
-    }
-    .btn-member-join {
+    .btn-sub-page {
       display: inline-flex;
       align-items: center;
-      gap: 0.55rem;
-      background-color: #ff4757;
-      color: #fff;
-      padding: 0.9rem 2rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1rem;
-      box-shadow: 0 4px 14px rgba(255, 71, 87, 0.35);
-      transition: background-color 0.2s, transform 0.2s;
-    }
-    .btn-member-join:hover {
-      background-color: #ff6b81;
-      transform: translateY(-1px);
-    }
-
-    .btn-booth {
-      display: inline-flex;
-      align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      background-color: #fc4d50;
-      color: #fff;
-      padding: 0.85rem 1.8rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1rem;
-      margin-top: 1rem;
-      box-shadow: 0 4px 12px rgba(252, 77, 80, 0.35);
-    }
-    .btn-booth:hover { background-color: #ff6b6e; }
-
-    .back-home { text-align: center; margin-top: 2.5rem; }
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: #232842;
+      background-color: #232842;
+      color: #f0f2f8;
       border: 1px solid #454d70;
-      color: #fff;
-      padding: 0.8rem 1.8rem;
-      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
       font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
     }
-    .btn-back:hover { border-color: #5bc4f4; }
 
+    .btn-sub-page:hover {
+      border-color: #5bc4f4;
+      background-color: #2c3252;
+    }
+
+    .section-action-center {
+      margin-top: 2.5rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* フッター */
     footer {
       text-align: center;
       padding: 2.2rem 1rem;
@@ -302,9 +369,31 @@
       color: #9ba1b0;
       font-size: 0.85rem;
     }
-    .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
-    .footer-links a { color: #d0d5e2; font-weight: 600; }
-    .footer-links a:hover { color: #5bc4f4; }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      margin-bottom: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #d0d5e2;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #5bc4f4;
+    }
+
+    @media (max-width: 768px) {
+      .page-hero h1 { font-size: 1.9rem; }
+      .logo { font-size: 1.2rem; }
+      .logo .sub-tagline { font-size: 0.8rem; }
+      .nav-select { font-size: 0.85rem; padding: 0.45rem 2rem 0.45rem 0.85rem; }
+    }
   </style>
 </head>
 <body>
@@ -317,16 +406,13 @@
         <span class="sub-tagline">～ラジオのようなゲーム配信～</span>
       </a>
       <div class="nav-select-wrapper">
-        <select class="nav-select" aria-label="メニュー移動" onchange="if(this.value) window.location.href=this.value;">
+        <select id="section-jump" class="nav-select" aria-label="メニュー移動" onchange="jumpToSection(this)">
           <option value="">≡MENU</option>
-          <option value="index.html#live">LIVE</option>
-          <option value="index.html#videos">動画</option>
-          <option value="index.html#events">大会・企画</option>
-          <option value="index.html#profile">プロフィール</option>
-          <option value="index.html#links">LINKS</option>
-          <option value="index.html#appearances">出演等</option>
-          <option value="index.html#gallery">ギャラリー</option>
-          <option value="index.html#contact">お問い合わせ</option>
+          <option value="index.html">ホームへ戻る</option>
+          <option value="#basic-info">基本情報・紹介</option>
+          <option value="#stats-and-ratio">ステータス・ジャンル比率</option>
+          <option value="#latest-video">最新の動画</option>
+          <option value="guideline.html">ガイドライン</option>
           <option value="credit.html">クレジット</option>
         </select>
         <span class="nav-select-arrow">▼</span>
@@ -334,157 +420,341 @@
     </div>
   </header>
 
+  <section class="page-hero">
+    <h1>プロフィール詳細</h1>
+    <p>いぬーるの活動概要・配信スタイル・最新動画をご案内します。</p>
+  </section>
+
   <main>
-    <div class="page-header">
-      <h1>実況者・配信者活動</h1>
-    </div>
+    <!-- 基本情報・紹介 -->
+    <section id="basic-info">
+      <h2 class="section-title">基本情報・紹介</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>☕ プロフィール</h3>
+          <div class="creator-badge">DBD Creator Gold（公認クリエイター）</div>
+          <ul class="profile-list">
+            <li>
+              <span class="profile-label">名前</span>
+              <span class="profile-value">いぬーる</span>
+            </li>
+            <li>
+              <span class="profile-label">種族</span>
+              <span class="profile-value">神獣</span>
+            </li>
+            <li>
+              <span class="profile-label">主な配信時間</span>
+              <span class="profile-value">平日 21:00〜 / 土日 不定期</span>
+            </li>
+            <li>
+              <span class="profile-label">主なジャンル</span>
+              <span class="profile-value">Dead by Daylight / ホラーゲーム / インディーズゲーム / FPS / その他（雑談等）</span>
+            </li>
+          </ul>
+        </div>
 
-    <div class="profile-hero-box">
-      <img src="images.banner.png" alt="いぬーる" class="profile-hero-img">
-      <div class="profile-hero-info">
-        <h2>いぬーる</h2>
-        <ul class="basic-list">
-          <li>
-            <strong>【デビュー】</strong>
-            <div class="debut-dates">
-              2024年10月9日（活動スタート）<br>
-              2024年11月30日（初配信）
-            </div>
-          </li>
-          <li><strong>【誕生日】</strong>9月20日</li>
-          <li><strong>【星座】</strong>乙女座</li>
-          <li><strong>【MBTI】</strong>ENTP, ENFJ</li>
-        </ul>
-        <div class="intro-text">
-          愛の神獣です！<br>
-          Dead by Daylightを中心に、ホラーゲームを多岐に配信していて、大会の実況や解説も。<br>
-          ⭐︎お喋りが止まらない、元気になるラジオのような配信。<br>
-          ⭐︎Love&amp;PeaceでGroovyな配信。<br>
-          そんな配信をお届け！
+        <div class="card">
+          <h3>🎙️ 活動について</h3>
+          <p class="bio-text">
+            YouTube・Twitchを中心に、ラジオ感覚で楽しめるゲーム実況や雑談などのライブ配信を行っています。DBD Creator Gold（公認クリエイター）として活動しており、普段の配信に加えてカスタム企画の運営や大会の実況なども務めています。
+          </p>
+          <p class="bio-text">
+            作業のお供やBGM代わりにも気軽に立ち寄っていただける空間づくりを大切にしています。初見さんやコメント少なめの方も大歓迎ですので、ぜひお気軽に遊びに来てください！
+          </p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="detail-card">
-      <h3>配信</h3>
-      <div class="sub-block">
-        <div class="sub-block-title">メイン（ゲーム、雑談、ラジオ）</div>
-        <div class="indent-text">週に4回程度 21:00～ 2～3時間くらい</div>
-      </div>
-      <div class="sub-block">
-        <div class="sub-block-title">朝活</div>
-        <div class="indent-text">不定期</div>
-      </div>
-      <div class="sub-block">
-        <div class="sub-block-title">配信例</div>
-        <div class="game-example-links">
-          <a href="dbd.html" class="game-link-btn">Dead by Daylight →</a>
-          <span class="game-plain-item">, FPS系, 7 Days to Die, ホラーゲーム, インディーズ</span>
+    <!-- ステータス・ジャンル比率 -->
+    <section id="stats-and-ratio">
+      <h2 class="section-title">ステータス・ジャンル比率</h2>
+      <div class="grid-2">
+        <div class="card radar-wrapper">
+          <div class="radar-title">📊 配信ステータス（MAX 8）</div>
+          <svg id="status-radar" class="radar-svg" viewBox="0 0 360 320" aria-label="いぬーる 配信ステータス レーダーチャート"></svg>
+        </div>
+
+        <div class="card">
+          <h3>🥧 配信ジャンル比率</h3>
+          <div class="pie-content">
+            <svg id="genre-pie" class="pie-svg" viewBox="0 0 180 180" aria-label="配信ジャンル比率 円グラフ"></svg>
+            <ul id="genre-pie-legend" class="pie-legend"></ul>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="detail-card">
-      <h3>動画など</h3>
-      <ul style="list-style: none; color: #d0d5e2; font-size: 0.95rem;">
-        <li>・DBDのキラー動画を中心に月数回</li>
-        <li>・ショート動画も週数回</li>
-        <li>・限定動画：ラジオ、Vlogなど</li>
-      </ul>
-
-      <div class="video-embed-box">
-        <div class="video-embed-label">🎬 最新の動画</div>
+    <!-- 最新の動画 -->
+    <section id="latest-video">
+      <h2 class="section-title">最新の動画</h2>
+      <div id="latest-video-section" class="latest-video-box">
+        <div class="latest-video-header">
+          <span class="latest-label">🎬 最新の動画アーカイブ</span>
+        </div>
         <div class="video-wrapper">
           <iframe
-            src="https://www.youtube.com/embed/HOMg3pK6EYk"
-            title="いぬーる 最新動画"
+            id="latest-yt-player"
+            src=""
+            title="いぬーる 最新の動画アーカイブ"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
           </iframe>
         </div>
       </div>
-    </div>
 
-    <div class="detail-card">
-      <h3>タグ</h3>
-      <div class="tag-grid">
-        <a href="https://x.com/search?q=%23%E3%81%93%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B&src=typed_query" target="_blank" rel="noopener noreferrer" class="tag-btn-card">
-          <span class="tag-label">応援・FANタグ</span>
-          <span class="tag-value">#こいぬーる</span>
-          <span class="tag-search-hint">𝕏 で検索 →</span>
-        </a>
-
-        <a href="https://x.com/search?q=%23%E3%82%8F%E3%82%93%E3%81%82%E3%83%BC%E3%82%8B&src=typed_query" target="_blank" rel="noopener noreferrer" class="tag-btn-card">
-          <span class="tag-label">ファンアートタグ</span>
-          <span class="tag-value">#わんあーる</span>
-          <span class="tag-search-hint">𝕏 で検索 →</span>
-        </a>
-
-        <a href="https://x.com/search?q=%23%E3%81%84%E3%81%AC%E3%83%BC%E3%82%8B%E6%84%9B%E3%81%A6%E3%82%80&src=typed_query" target="_blank" rel="noopener noreferrer" class="tag-btn-card">
-          <span class="tag-label">グッズタグ</span>
-          <span class="tag-value">#いぬーる愛てむ</span>
-          <span class="tag-search-hint">𝕏 で検索 →</span>
-        </a>
-
-        <a href="https://x.com/search?q=%23%E3%81%8D%E3%82%8A%E3%81%A8%E3%81%AC%E3%83%BC%E3%82%8B&src=typed_query" target="_blank" rel="noopener noreferrer" class="tag-btn-card">
-          <span class="tag-label">切り取りタグ</span>
-          <span class="tag-value">#きりとぬーる</span>
-          <span class="tag-search-hint">𝕏 で検索 →</span>
-        </a>
+      <div class="section-action-center">
+        <a href="index.html" class="btn-sub-page">← トップページへ戻る</a>
+        <a href="guideline.html" class="btn-sub-page">📜 ガイドラインを見る →</a>
       </div>
-    </div>
-
-    <div class="detail-card">
-      <h3>メンバーシップ</h3>
-      <p style="font-size: 0.95rem; color: #d0d5e2;">YouTubeはメンバーシップを用意しています</p>
-      <div class="member-grid">
-        <div class="member-tier">
-          <h4>神獣観察員 <span class="member-price">140円</span></h4>
-          <p>
-            限定バッジ・スタンプが使えるよ。<br>
-            珈琲1杯分のお値段でいぬーるを応援📣
-          </p>
-        </div>
-        <div class="member-tier">
-          <h4>神獣飼育員 <span class="member-price">490円</span></h4>
-          <p>
-            限定バッジ・スタンプが使えるよ。<br>
-            限定動画、配信、アーカイブ、Discordアクセス。<br>
-            オーツラテ1杯分のお値段(わんコイン)でいぬーるを応援📣
-          </p>
-        </div>
-      </div>
-
-      <div class="member-join-wrap">
-        <a href="https://www.youtube.com/channel/UC0cgRgovA84hfh-P7G-sSKw/join" target="_blank" rel="noopener noreferrer" class="btn-member-join">
-          ⭐ メンバー加入はこちらから →
-        </a>
-      </div>
-    </div>
-
-    <div class="detail-card">
-      <h3>グッズ</h3>
-      <p style="font-size: 0.95rem; color: #d0d5e2;">
-        BOOTHで常設販売あり<br>
-        ・アクリルキーホルダーなど
-      </p>
-      <a href="https://inu-ru.booth.pm/" target="_blank" rel="noopener noreferrer" class="btn-booth">
-        🛍️ BOOTH 公式ショップはこちら →
-      </a>
-    </div>
-
-    <div class="back-home">
-      <a href="index.html" class="btn-back">← トップページへ戻る</a>
-    </div>
+    </section>
   </main>
 
   <footer>
     <div class="footer-links">
+      <a href="profile.html">プロフィール詳細</a>
+      <a href="guideline.html">ガイドライン</a>
+      <a href="fanart.html">FA</a>
+      <a href="inr-custom-fever.html">INR CUSTOM Fever</a>
+      <a href="credit.html">クレジット</a>
       <a href="sitemap.html">サイトマップ</a>
       <a href="privacy.html">プライバシーポリシー</a>
     </div>
     <div>&copy; 2026 INU-RU ALL RIGHTS RESERVED.</div>
   </footer>
 
+  <script>
+    const ARCHIVE_PLAYLIST_ID = 'PLQXss-R88kso';
+
+    function extractYouTubeVideoId(urlOrId) {
+      if (!urlOrId) return '';
+      const trimmed = urlOrId.trim();
+      try {
+        if (trimmed.includes('yt:video:')) {
+          return trimmed.split('yt:video:')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.includes('youtu.be/')) {
+          return trimmed.split('youtu.be/')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.includes('v=')) {
+          return trimmed.split('v=')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.includes('/live/')) {
+          return trimmed.split('/live/')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.length === 11) {
+          return trimmed;
+        }
+      } catch (e) {
+        return '';
+      }
+      return '';
+    }
+
+    // 最新の動画：指定再生リスト（PLQXss-R88kso）の1番目を自動取得
+    (async function initProfileLatestVideo() {
+      const player = document.getElementById('latest-yt-player');
+      const boxEl = document.getElementById('latest-video-section');
+      if (!player || !boxEl) return;
+
+      const playlistRss = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + ARCHIVE_PLAYLIST_ID;
+      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(playlistRss);
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
+          const firstItem = data.items[0];
+          const videoId =
+            extractYouTubeVideoId(firstItem.guid) ||
+            extractYouTubeVideoId(firstItem.link);
+
+          if (videoId) {
+            player.src = 'https://www.youtube.com/embed/' + videoId;
+            return;
+          }
+        }
+        boxEl.style.display = 'none';
+      } catch (e) {
+        boxEl.style.display = 'none';
+      }
+    })();
+
+    // ヘッダープルダウン移動
+    function jumpToSection(selectEl) {
+      const val = selectEl.value;
+      if (!val) return;
+      if (val.startsWith('#')) {
+        const targetEl = document.querySelector(val);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        window.location.href = val;
+      }
+      selectEl.selectedIndex = 0;
+    }
+
+    // 7項目レーダーチャート描画
+    (function drawRadarChart() {
+      const svg = document.getElementById('status-radar');
+      if (!svg) return;
+
+      const stats = [
+        { label: 'トーク', value: 7 },
+        { label: '技術', value: 4 },
+        { label: '企画力', value: 4 },
+        { label: 'テンション', value: 8 },
+        { label: 'リスナー愛', value: 8 },
+        { label: '絶叫', value: 6 },
+        { label: '配信頻度', value: 5 }
+      ];
+
+      const maxVal = 8;
+      const cx = 180;
+      const cy = 160;
+      const radius = 100;
+      const count = stats.length;
+      const ns = 'http://www.w3.org/2000/svg';
+
+      [2, 4, 6, 8].forEach(level => {
+        const r = (radius * level) / maxVal;
+        const pts = stats.map((_, i) => {
+          const angle = (Math.PI * 2 * i) / count - Math.PI / 2;
+          return (cx + r * Math.cos(angle)).toFixed(1) + ',' + (cy + r * Math.sin(angle)).toFixed(1);
+        }).join(' ');
+
+        const poly = document.createElementNS(ns, 'polygon');
+        poly.setAttribute('points', pts);
+        poly.setAttribute('fill', 'none');
+        poly.setAttribute('stroke', level === 8 ? '#454d70' : '#2c3149');
+        poly.setAttribute('stroke-width', level === 8 ? '1.5' : '1');
+        svg.appendChild(poly);
+      });
+
+      stats.forEach((_, i) => {
+        const angle = (Math.PI * 2 * i) / count - Math.PI / 2;
+        const line = document.createElementNS(ns, 'line');
+        line.setAttribute('x1', cx);
+        line.setAttribute('y1', cy);
+        line.setAttribute('x2', (cx + radius * Math.cos(angle)).toFixed(1));
+        line.setAttribute('y2', (cy + radius * Math.sin(angle)).toFixed(1));
+        line.setAttribute('stroke', '#2c3149');
+        line.setAttribute('stroke-width', '1');
+        svg.appendChild(line);
+      });
+
+      const dataPoints = stats.map((s, i) => {
+        const r = (radius * s.value) / maxVal;
+        const angle = (Math.PI * 2 * i) / count - Math.PI / 2;
+        return {
+          x: cx + r * Math.cos(angle),
+          y: cy + r * Math.sin(angle)
+        };
+      });
+
+      const dataPoly = document.createElementNS(ns, 'polygon');
+      dataPoly.setAttribute('points', dataPoints.map(p => p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' '));
+      dataPoly.setAttribute('fill', 'rgba(255, 71, 87, 0.3)');
+      dataPoly.setAttribute('stroke', '#ff4757');
+      dataPoly.setAttribute('stroke-width', '2.5');
+      svg.appendChild(dataPoly);
+
+      stats.forEach((s, i) => {
+        const p = dataPoints[i];
+        const dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', p.x.toFixed(1));
+        dot.setAttribute('cy', p.y.toFixed(1));
+        dot.setAttribute('r', '4');
+        dot.setAttribute('fill', '#ff6b81');
+        dot.setAttribute('stroke', '#fff');
+        dot.setAttribute('stroke-width', '1.5');
+        svg.appendChild(dot);
+
+        const angle = (Math.PI * 2 * i) / count - Math.PI / 2;
+        const labelR = radius + 24;
+        const lx = cx + labelR * Math.cos(angle);
+        const ly = cy + labelR * Math.sin(angle);
+
+        const text = document.createElementNS(ns, 'text');
+        text.setAttribute('x', lx.toFixed(1));
+        text.setAttribute('y', ly.toFixed(1));
+        text.setAttribute('fill', '#f0f2f8');
+        text.setAttribute('font-size', '12');
+        text.setAttribute('font-weight', '700');
+        text.setAttribute('dominant-baseline', 'middle');
+
+        const cos = Math.cos(angle);
+        if (cos > 0.25) {
+          text.setAttribute('text-anchor', 'start');
+        } else if (cos < -0.25) {
+          text.setAttribute('text-anchor', 'end');
+        } else {
+          text.setAttribute('text-anchor', 'middle');
+        }
+
+        text.textContent = s.label + ' ' + s.value;
+        svg.appendChild(text);
+      });
+    })();
+
+    // 配信ジャンル比率 円グラフ描画
+    (function drawPieChart() {
+      const svg = document.getElementById('genre-pie');
+      const legend = document.getElementById('genre-pie-legend');
+      if (!svg || !legend) return;
+
+      const items = [
+        { label: 'Dead by Daylight', percent: 70, color: '#ff4757' },
+        { label: 'ホラーゲーム', percent: 15, color: '#9146ff' },
+        { label: 'FPS', percent: 5, color: '#3742fa' },
+        { label: 'インディーズ', percent: 5, color: '#ffa502' },
+        { label: 'その他（雑談等）', percent: 5, color: '#2ed573' }
+      ];
+
+      const cx = 90;
+      const cy = 90;
+      const r = 78;
+      const ns = 'http://www.w3.org/2000/svg';
+      let currentAngle = -Math.PI / 2;
+
+      items.forEach(item => {
+        const sliceAngle = (Math.PI * 2 * item.percent) / 100;
+        const x1 = cx + r * Math.cos(currentAngle);
+        const y1 = cy + r * Math.sin(currentAngle);
+        const endAngle = currentAngle + sliceAngle;
+        const x2 = cx + r * Math.cos(endAngle);
+        const y2 = cy + r * Math.sin(endAngle);
+        const largeArc = item.percent > 50 ? 1 : 0;
+
+        const pathData = [
+          `M ${cx} ${cy}`,
+          `L ${x1.toFixed(2)} ${y1.toFixed(2)}`,
+          `A ${r} ${r} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`,
+          'Z'
+        ].join(' ');
+
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', pathData);
+        path.setAttribute('fill', item.color);
+        path.setAttribute('stroke', '#1a1d2d');
+        path.setAttribute('stroke-width', '2');
+        svg.appendChild(path);
+
+        currentAngle = endAngle;
+
+        const li = document.createElement('li');
+        const dot = document.createElement('span');
+        dot.className = 'pie-dot';
+        dot.style.backgroundColor = item.color;
+        li.appendChild(dot);
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = `${item.label} ${item.percent}%`;
+        li.appendChild(textSpan);
+        legend.appendChild(li);
+      });
+    })();
+  </script>
 </body>
 </html>
