@@ -113,6 +113,9 @@
       font-size: 0.95rem;
       color: #d0d5e2;
     }
+    .intro-text p + p {
+      margin-top: 0.85rem;
+    }
 
     .detail-card {
       background: #1a1d2d;
@@ -356,11 +359,12 @@
           <li><strong>【MBTI】</strong>ENTP, ENFJ</li>
         </ul>
         <div class="intro-text">
-          愛の神獣です！<br>
-          Dead by Daylightを中心に、ホラーゲームを多岐に配信していて、大会の実況や解説も。<br>
-          ⭐︎お喋りが止まらない、元気になるラジオのような配信。<br>
-          ⭐︎Love&amp;PeaceでGroovyな配信。<br>
-          そんな配信をお届け！
+          <p>
+            YouTube・Twitchを中心に、ラジオ感覚で楽しめるゲーム実況や雑談などのライブ配信を行っています。DBD Creator Gold（公認クリエイター）として活動しており、普段の配信に加えてカスタム企画の運営や大会の実況なども務めています。
+          </p>
+          <p>
+            作業のお供やBGM代わりにも気軽に立ち寄っていただける空間づくりを大切にしています。初見さんやコメント少なめの方も大歓迎ですので、ぜひお気軽に遊びに来てください！
+          </p>
         </div>
       </div>
     </div>
@@ -392,11 +396,12 @@
         <li>・限定動画：ラジオ、Vlogなど</li>
       </ul>
 
-      <div class="video-embed-box">
+      <div id="latest-video-section" class="video-embed-box">
         <div class="video-embed-label">🎬 最新の動画</div>
         <div class="video-wrapper">
           <iframe
-            src="https://www.youtube.com/embed/HOMg3pK6EYk"
+            id="latest-yt-player"
+            src=""
             title="いぬーる 最新動画"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
@@ -485,6 +490,65 @@
     </div>
     <div>&copy; 2026 INU-RU ALL RIGHTS RESERVED.</div>
   </footer>
+
+  <script>
+    const ARCHIVE_PLAYLIST_ID = 'PLQXss-R88kso';
+
+    function extractYouTubeVideoId(urlOrId) {
+      if (!urlOrId) return '';
+      const trimmed = urlOrId.trim();
+      try {
+        if (trimmed.includes('yt:video:')) {
+          return trimmed.split('yt:video:')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.includes('youtu.be/')) {
+          return trimmed.split('youtu.be/')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.includes('v=')) {
+          return trimmed.split('v=')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.includes('/live/')) {
+          return trimmed.split('/live/')[1].split(/[?&#]/)[0];
+        }
+        if (trimmed.length === 11) {
+          return trimmed;
+        }
+      } catch (e) {
+        return '';
+      }
+      return '';
+    }
+
+    // 最新の動画：指定再生リスト（PLQXss-R88kso）の1番目を自動取得
+    (async function initProfileLatestVideo() {
+      const player = document.getElementById('latest-yt-player');
+      const boxEl = document.getElementById('latest-video-section');
+      if (!player || !boxEl) return;
+
+      const playlistRss = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + ARCHIVE_PLAYLIST_ID;
+      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(playlistRss);
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
+          const firstItem = data.items[0];
+          const videoId =
+            extractYouTubeVideoId(firstItem.guid) ||
+            extractYouTubeVideoId(firstItem.link);
+
+          if (videoId) {
+            player.src = 'https://www.youtube.com/embed/' + videoId;
+            return;
+          }
+        }
+        boxEl.style.display = 'none';
+      } catch (e) {
+        boxEl.style.display = 'none';
+      }
+    })();
+  </script>
 
 </body>
 </html>
